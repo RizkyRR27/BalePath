@@ -127,6 +127,8 @@
 .public-footer > span { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
 .public-poleng { display: inline-block; width: 31px; height: 11px; background: linear-gradient(90deg, #eee6d7 0 30%, transparent 30% 35%, #827b6e 35% 65%, transparent 65% 70%, #2d2a23 70%); flex-shrink: 0; }
 .public-footer-place { margin-left: 18px; font-size: 9px; color: #cfad64; letter-spacing: .12em; }
+.public-footer-link { min-height: 44px; display: inline-flex; align-items: center; gap: 10px; }
+.public-footer-link:hover { color: #e4c889; text-decoration: underline; text-underline-offset: 5px; }
 .public-calendar-intro { padding-bottom: 34px; }
 .public-calendar-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(310px, 1fr); align-items: start; gap: 28px; }
 .public-calendar-panel { padding: 24px; background: #1c1b19; border: 1px solid #39352e; border-radius: 6px; }
@@ -218,6 +220,8 @@
 }
 
 @media (max-width: 900px) {
+  .public-header { flex-wrap: wrap; gap: 0 18px; padding-top: 16px; }
+  .public-nav { order: 3; flex-basis: 100%; justify-content: center; }
   .public-brand { font-size: 24px; gap: 9px; }
   .public-brand small { font-size: 7px; }
   .public-nav a { font-size: 12px; padding: 14px 11px; }

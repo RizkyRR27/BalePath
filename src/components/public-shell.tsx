@@ -13,6 +13,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
   const links = [
     { href: "/", label: "Peta Adat", icon: Map },
     { href: "/kalender", label: "Kalender Yadnya", icon: CalendarDays },
+    { href: "/tri-hita-karana", label: "Tri Hita Karana", icon: Sprout },
   ];
   return (
     <div className="public-shell">
@@ -37,7 +38,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
       <main id="public-content" tabIndex={-1}>{children}</main>
       <footer className="public-footer">
         <span className="public-footer-message"><span className="public-poleng" aria-hidden="true" />Menjaga tradisi. Menyelaraskan perjalanan.</span>
-        <span><Sprout size={15} aria-hidden="true" /> Berlandaskan Tri Hita Karana <span className="public-footer-place">UBUD, BALI</span></span>
+        <span><Link href="/tri-hita-karana" className="public-footer-link"><Sprout size={15} aria-hidden="true" /> Berlandaskan Tri Hita Karana</Link> <span className="public-footer-place">UBUD, BALI</span></span>
       </footer>
     </div>
   );

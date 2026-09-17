@@ -62,6 +62,56 @@ test("public nav collapses to hamburger on mobile", async ({ page }) => {
   await expect(page.locator(".public-mobile-nav")).toBeHidden();
 });
 
+test("impact page is reachable through desktop and mobile navigation", async ({ page }) => {
+  await page.goto("/");
+  await page.locator(".public-nav").getByRole("link", { name: "Tri Hita Karana" }).click();
+  await expect(page).toHaveURL(/\/tri-hita-karana$/);
+  await expect(page.locator('.public-nav a[aria-current="page"]')).toHaveText("Tri Hita Karana");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tri Hita Karana & Tata Hijau Mobilitas Adat");
+  await expect(page.locator(".impact-pillar")).toHaveCount(3);
+  await expect(page.locator(".impact-metric")).toHaveCount(3);
+  await expect(page.locator(".impact-ceremony")).toHaveCount(4);
+  await expect(page.locator(".impact-etiquette-card")).toHaveCount(4);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/kalender");
+  await page.getByRole("button", { name: "Buka menu" }).click();
+  await page.locator(".public-mobile-nav").getByRole("link", { name: "Tri Hita Karana" }).click();
+  await expect(page).toHaveURL(/\/tri-hita-karana$/);
+  await expect(page.locator(".public-mobile-nav")).toBeHidden();
+  await page.getByRole("link", { name: /Hotline & Kontak Darurat/ }).click();
+  await expect(page).toHaveURL(/#kontak-darurat$/);
+  await expect(page.getByRole("link", { name: "Hubungi 119" })).toHaveAttribute("href", "tel:119");
+  await expect(page.locator(".impact-contact-placeholder")).toHaveText("Nomor posko belum tersedia");
+  await page.getByRole("link", { name: "Lihat peta adat", exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
+});
+
+test("impact calculator updates estimates for each vehicle and slider boundaries", async ({ page }) => {
+  await page.goto("/tri-hita-karana");
+  await expect(page.locator("#calc-fuel")).toHaveText("2.4 Liter");
+  await expect(page.locator("#calc-co2")).toHaveText("5.6 kg");
+  await page.getByRole("button", { name: "Mobil LCGC" }).click();
+  await expect(page.getByRole("button", { name: "Mobil LCGC" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("button", { name: "Sepeda Motor" })).toHaveAttribute("aria-pressed", "false");
+  await expect(page.locator("#calc-fuel")).toHaveText("5.8 Liter");
+  await expect(page.locator("#calc-co2")).toHaveText("13.3 kg");
+  const slider = page.getByRole("slider", { name: "Frekuensi penerapan detour / bulan" });
+  await slider.focus();
+  await slider.press("Home");
+  await expect(slider).toHaveValue("1");
+  await expect(page.locator("#calc-fuel")).toHaveText("0.7 Liter");
+  await expect(page.locator("#calc-co2")).toHaveText("1.7 kg");
+  await slider.press("End");
+  await page.getByRole("button", { name: "Van / SUV" }).click();
+  await expect(slider).toHaveValue("25");
+  await expect(page.locator("#calc-fuel")).toHaveText("26.6 Liter");
+  await expect(page.locator("#calc-co2")).toHaveText("61.2 kg");
+  await expect(page.locator("#slider-val")).toHaveText("25 Kali Rerouting");
+  await page.getByRole("button", { name: "Sepeda Motor" }).click();
+  await expect(page.locator("#calc-fuel")).toHaveText("7.6 Liter");
+  await expect(page.locator("#calc-co2")).toHaveText("17.5 kg");
+});
+
 test("desktop public layout uses wide container", async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto("/");
@@ -96,7 +146,7 @@ test("admin workspace uses two columns on tablet", async ({ page }) => {
 for (const viewport of VIEWPORTS) {
   test(`no horizontal overflow at ${viewport.width}x${viewport.height}`, async ({ page }) => {
     await page.setViewportSize(viewport);
-    for (const path of ["/", "/kalender", "/admin/login"]) {
+    for (const path of ["/", "/kalender", "/tri-hita-karana", "/admin/login"]) {
       await page.goto(path);
       await expect(page.getByRole("contentinfo").or(page.getByRole("heading", { name: /Ruang untuk tradisi|Kalender|Selamat datang/ })).first()).toBeVisible();
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
