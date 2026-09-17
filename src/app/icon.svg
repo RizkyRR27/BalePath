@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="goldBalinese" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" />
+      <stop offset="50%" stop-color="#E5A93C" />
+      <stop offset="100%" stop-color="#B87333" />
+    </linearGradient>
+  </defs>
+  <path d="M50 8 L54 18 L64 18 L56 24 L59 34 L50 28 L41 34 L44 24 L36 18 L46 18 Z" fill="url(#goldBalinese)"/>
+  <path d="M38 35 L38 88 L30 88 L30 75 L22 75 L22 62 L32 45 L38 35 Z" fill="url(#goldBalinese)" opacity="0.95"/>
+  <path d="M26 62 L26 75 L16 75 L16 88 L10 88 L18 55 Z" fill="#C88A2C" opacity="0.8"/>
+  <path d="M62 35 L62 88 L70 88 L70 75 L78 75 L78 62 L68 45 L62 35 Z" fill="url(#goldBalinese)" opacity="0.95"/>
+  <path d="M74 62 L74 75 L84 75 L84 88 L90 88 L82 55 Z" fill="#C88A2C" opacity="0.8"/>
+  <path d="M47 48 L53 48 L57 88 L43 88 Z" fill="#FFECB3" opacity="0.9"/>
+  <circle cx="50" cy="40" r="3" fill="#FFF"/>
+  <circle cx="50" cy="40" r="1.5" fill="#141312"/>
+</svg>
