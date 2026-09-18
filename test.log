@@ -1,0 +1,29 @@
+[WebServer] (node:30724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 20 tests using 1 worker
+
+(node:16952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests\balepath.spec.ts:21:5 › admin login flow protects dashboard (4.1s)
+  ✓   2 [chromium] › tests\balepath.spec.ts:30:5 › admin login rejects wrong credentials (1.2s)
+  ✓   3 [chromium] › tests\balepath.spec.ts:38:5 › public map shows dummy ceremony and updates detail (1.8s)
+  ✓   4 [chromium] › tests\balepath.spec.ts:47:5 › calendar opens event detail (1.3s)
+  ✓   5 [chromium] › tests\balepath.spec.ts:54:5 › public nav collapses to hamburger on mobile (2.3s)
+  ✓   6 [chromium] › tests\balepath.spec.ts:65:5 › impact page is reachable through desktop and mobile navigation (4.5s)
+  ✓   7 [chromium] › tests\balepath.spec.ts:89:5 › impact calculator updates estimates for each vehicle and slider boundaries (2.7s)
+  ✓   8 [chromium] › tests\balepath.spec.ts:115:5 › desktop public layout uses wide container (1.2s)
+  ✓   9 [chromium] › tests\balepath.spec.ts:123:5 › admin dashboard: sidebar on desktop, rows on mobile, no overflow (2.6s)
+  ✓  10 [chromium] › tests\balepath.spec.ts:139:5 › admin workspace uses two columns on tablet (1.7s)
+  ✓  11 [chromium] › tests\balepath.spec.ts:146:5 › legacy locale-less urls redirect to /id (2.6s)
+  ✓  12 [chromium] › tests\balepath.spec.ts:153:5 › language switcher swaps locale segment (1.7s)
+  ✓  13 [chromium] › tests\balepath.spec.ts:164:5 › english locale renders translated public pages (2.0s)
+  ✓  14 [chromium] › tests\balepath.spec.ts:175:7 › no horizontal overflow at 390x844 (2.6s)
+  ✓  15 [chromium] › tests\balepath.spec.ts:175:7 › no horizontal overflow at 393x852 (2.5s)
+  ✓  16 [chromium] › tests\balepath.spec.ts:175:7 › no horizontal overflow at 402x874 (2.5s)
+  ✓  17 [chromium] › tests\balepath.spec.ts:175:7 › no horizontal overflow at 768x1024 (2.4s)
+  ✓  18 [chromium] › tests\balepath.spec.ts:175:7 › no horizontal overflow at 820x1180 (2.6s)
+  ✓  19 [chromium] › tests\balepath.spec.ts:175:7 › no horizontal overflow at 1024x1366 (2.7s)
+  ✓  20 [chromium] › tests\balepath.spec.ts:175:7 › no horizontal overflow at 1920x1080 (3.1s)
+
+  20 passed (58.6s)
