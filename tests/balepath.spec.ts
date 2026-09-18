@@ -11,24 +11,24 @@ const VIEWPORTS: { width: number; height: number }[] = [
 ];
 
 async function loginAdmin(page: import("@playwright/test").Page) {
-  await page.goto("/admin/login");
+  await page.goto("/id/admin/login");
   await page.getByLabel("Email admin").fill("admin@banjarkaja.id");
   await page.getByPlaceholder("Masukkan password").fill("admin123");
   await page.getByRole("button", { name: "Masuk ke dasbor" }).click();
-  await expect(page).toHaveURL(/\/admin$/);
+  await expect(page).toHaveURL(/\/id\/admin$/);
 }
 
 test("admin login flow protects dashboard", async ({ page }) => {
-  await page.goto("/admin");
-  await expect(page).toHaveURL(/\/admin\/login$/);
+  await page.goto("/id/admin");
+  await expect(page).toHaveURL(/\/id\/admin\/login$/);
   await loginAdmin(page);
   await expect(page.getByRole("heading", { name: /Prajuru Banjar/ })).toBeVisible();
   await page.getByRole("button", { name: "Keluar dari akun" }).click();
-  await expect(page).toHaveURL(/\/admin\/login$/);
+  await expect(page).toHaveURL(/\/id\/admin\/login$/);
 });
 
 test("admin login rejects wrong credentials", async ({ page }) => {
-  await page.goto("/admin/login");
+  await page.goto("/id/admin/login");
   await page.getByLabel("Email admin").fill("admin@banjarkaja.id");
   await page.getByPlaceholder("Masukkan password").fill("salah");
   await page.getByRole("button", { name: "Masuk ke dasbor" }).click();
@@ -36,7 +36,7 @@ test("admin login rejects wrong credentials", async ({ page }) => {
 });
 
 test("public map shows dummy ceremony and updates detail", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/id");
   await expect(page.getByRole("heading", { name: /Ruang untuk tradisi/ })).toBeVisible();
   const agenda = page.getByRole("button", { name: /Pitra Yadnya/ });
   await expect(agenda.first()).toBeVisible();
@@ -45,7 +45,7 @@ test("public map shows dummy ceremony and updates detail", async ({ page }) => {
 });
 
 test("calendar opens event detail", async ({ page }) => {
-  await page.goto("/kalender");
+  await page.goto("/id/kalender");
   await expect(page.getByRole("heading", { name: /Kalender/ })).toBeVisible();
   await page.getByRole("button", { name: /17 September 2026/ }).click();
   await expect(page.getByRole("heading", { name: "Pitra Yadnya · Ngaben Ageng" })).toBeVisible();
@@ -53,19 +53,19 @@ test("calendar opens event detail", async ({ page }) => {
 
 test("public nav collapses to hamburger on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
+  await page.goto("/id");
   await expect(page.locator(".public-nav")).toBeHidden();
   await page.getByRole("button", { name: "Buka menu" }).click();
   await expect(page.locator(".public-mobile-nav")).toBeVisible();
   await page.locator(".public-mobile-nav").getByRole("link", { name: "Kalender Yadnya" }).click();
-  await expect(page).toHaveURL(/\/kalender$/);
+  await expect(page).toHaveURL(/\/id\/kalender$/);
   await expect(page.locator(".public-mobile-nav")).toBeHidden();
 });
 
 test("impact page is reachable through desktop and mobile navigation", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/id");
   await page.locator(".public-nav").getByRole("link", { name: "Tri Hita Karana" }).click();
-  await expect(page).toHaveURL(/\/tri-hita-karana$/);
+  await expect(page).toHaveURL(/\/id\/tri-hita-karana$/);
   await expect(page.locator('.public-nav a[aria-current="page"]')).toHaveText("Tri Hita Karana");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tri Hita Karana & Tata Hijau Mobilitas Adat");
   await expect(page.locator(".impact-pillar")).toHaveCount(3);
@@ -73,21 +73,21 @@ test("impact page is reachable through desktop and mobile navigation", async ({ 
   await expect(page.locator(".impact-ceremony")).toHaveCount(4);
   await expect(page.locator(".impact-etiquette-card")).toHaveCount(4);
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/kalender");
+  await page.goto("/id/kalender");
   await page.getByRole("button", { name: "Buka menu" }).click();
   await page.locator(".public-mobile-nav").getByRole("link", { name: "Tri Hita Karana" }).click();
-  await expect(page).toHaveURL(/\/tri-hita-karana$/);
+  await expect(page).toHaveURL(/\/id\/tri-hita-karana$/);
   await expect(page.locator(".public-mobile-nav")).toBeHidden();
   await page.getByRole("link", { name: /Hotline & Kontak Darurat/ }).click();
   await expect(page).toHaveURL(/#kontak-darurat$/);
   await expect(page.getByRole("link", { name: "Hubungi 119" })).toHaveAttribute("href", "tel:119");
   await expect(page.locator(".impact-contact-placeholder")).toHaveText("Nomor posko belum tersedia");
   await page.getByRole("link", { name: "Lihat peta adat", exact: true }).click();
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL(/\/id$/);
 });
 
 test("impact calculator updates estimates for each vehicle and slider boundaries", async ({ page }) => {
-  await page.goto("/tri-hita-karana");
+  await page.goto("/id/tri-hita-karana");
   await expect(page.locator("#calc-fuel")).toHaveText("2.4 Liter");
   await expect(page.locator("#calc-co2")).toHaveText("5.6 kg");
   await page.getByRole("button", { name: "Mobil LCGC" }).click();
@@ -114,7 +114,7 @@ test("impact calculator updates estimates for each vehicle and slider boundaries
 
 test("desktop public layout uses wide container", async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
-  await page.goto("/");
+  await page.goto("/id");
   await expect(page.locator(".public-nav")).toBeVisible();
   const width = await page.locator(".public-container").evaluate((el) => el.getBoundingClientRect().width);
   expect(width).toBeGreaterThanOrEqual(1600);
@@ -143,10 +143,38 @@ test("admin workspace uses two columns on tablet", async ({ page }) => {
   expect(columns).toBe(2);
 });
 
+test("legacy locale-less urls redirect to /id", async ({ page }) => {
+  for (const [from, to] of [["/", "/id"], ["/kalender", "/id/kalender"], ["/tri-hita-karana", "/id/tri-hita-karana"], ["/admin/login", "/id/admin/login"], ["/admin", "/id/admin"]] as const) {
+    await page.goto(from);
+    await expect(page).toHaveURL(new RegExp(`${to.replace(/\//g, "\\/")}$`));
+  }
+});
+
+test("language switcher swaps locale segment", async ({ page }) => {
+  await page.goto("/id/kalender");
+  await expect(page.locator("html")).toHaveAttribute("lang", "id");
+  await page.locator(".public-lang").click();
+  await expect(page).toHaveURL(/\/en\/kalender$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await page.locator(".public-lang").click();
+  await expect(page).toHaveURL(/\/id\/kalender$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "id");
+});
+
+test("english locale renders translated public pages", async ({ page }) => {
+  await page.goto("/en");
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.getByRole("heading", { name: /Room for tradition/ })).toBeVisible();
+  await page.goto("/en/admin/login");
+  await expect(page.getByLabel("Admin email")).toBeVisible();
+  await page.goto("/en/tri-hita-karana");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tri Hita Karana & Green Customary Mobility");
+});
+
 for (const viewport of VIEWPORTS) {
   test(`no horizontal overflow at ${viewport.width}x${viewport.height}`, async ({ page }) => {
     await page.setViewportSize(viewport);
-    for (const path of ["/", "/kalender", "/tri-hita-karana", "/admin/login"]) {
+    for (const path of ["/id", "/id/kalender", "/id/tri-hita-karana", "/id/admin/login"]) {
       await page.goto(path);
       await expect(page.getByRole("contentinfo").or(page.getByRole("heading", { name: /Ruang untuk tradisi|Kalender|Selamat datang/ })).first()).toBeVisible();
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

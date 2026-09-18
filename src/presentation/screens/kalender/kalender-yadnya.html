@@ -1,0 +1,1611 @@
+<!doctype html>
+<html class="dark" lang="id" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @layer base {
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          overscroll-behavior: none;
+        }
+        main > :first-child {
+          margin-top: 0 !important;
+        }
+        main > :last-child {
+          margin-bottom: 0 !important;
+        }
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#201f1e",
+              "on-error": "#690005",
+              "tertiary-container": "#7ec1ab",
+              "on-surface-variant": "#d4c4b0",
+              "on-primary-fixed": "#281900",
+              "stone-elevated": "#34312E",
+              background: "#141312",
+              "tertiary-fixed": "#acf0d9",
+              primary: "#ffc665",
+              "primary-fixed-dim": "#fabc4d",
+              "poleng-black": "#0A0A09",
+              "secondary-fixed": "#ffdad2",
+              "poleng-ash": "#7D7871",
+              "tertiary-fixed-dim": "#90d4be",
+              "secondary-container": "#832b15",
+              surface: "#141312",
+              "poleng-white": "#F7F5F0",
+              "on-primary-container": "#5e4000",
+              "surface-tint": "#fabc4d",
+              "outline-variant": "#504535",
+              secondary: "#ffb4a2",
+              "volcanic-basalt": "#121110",
+              "terracotta-candi": "#C2593F",
+              "surface-bright": "#3a3938",
+              "on-primary-fixed-variant": "#604100",
+              "incense-smoke": "#ECE5D8",
+              "on-primary": "#432c00",
+              error: "#ffb4ab",
+              "on-surface": "#e6e2df",
+              "surface-variant": "#363433",
+              "primary-fixed": "#ffdead",
+              "closure-partial": "#E5A93C",
+              "inverse-surface": "#e6e2df",
+              "ceremony-sacred": "#9B51E0",
+              outline: "#9d8f7c",
+              "surface-container-highest": "#363433",
+              "surface-container-high": "#2b2a29",
+              "surface-container-lowest": "#0f0e0d",
+              "janur-soft": "#EADBB6",
+              tertiary: "#99ddc6",
+              "on-tertiary-fixed-variant": "#005140",
+              "on-tertiary-fixed": "#002018",
+              "detour-safe": "#2E8B57",
+              "marigold-kuning": "#E5A93C",
+              "surface-container-low": "#1c1b1a",
+              "on-tertiary-container": "#00503f",
+              "closure-full": "#D84A38",
+              "on-background": "#e6e2df",
+              "on-secondary-container": "#ffa088",
+              "on-tertiary": "#00382c",
+              "on-secondary": "#611201",
+              "error-container": "#93000a",
+              "inverse-on-surface": "#31302f",
+              "batu-candi": "#1C1B1A",
+              "emas-prada": "#F3C35C",
+              "stone-surface": "#282624",
+              "secondary-fixed-dim": "#ffb4a2",
+              "primary-container": "#e5a93c",
+              "on-error-container": "#ffdad6",
+              "surface-dim": "#141312",
+              "inverse-primary": "#7e5700",
+              "on-secondary-fixed": "#3c0700",
+              "on-secondary-fixed-variant": "#802913",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              "space-md": "1rem",
+              "space-xs": "0.25rem",
+              "margin-tablet": "1.5rem",
+              "space-lg": "1.5rem",
+              gutter: "1rem",
+              margin: "1rem",
+              "space-sm": "0.5rem",
+              "gutter-desktop": "1.5rem",
+              "margin-desktop": "2.5rem",
+              "space-xl": "2.5rem",
+            },
+            fontFamily: {
+              display: ["Noto Serif"],
+              "headline-md": ["Noto Serif"],
+              "body-sm": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "label-sm": ["Space Grotesk"],
+              "title-sm": ["Plus Jakarta Sans"],
+              "label-md": ["Space Grotesk"],
+              "body-lg": ["Plus Jakarta Sans"],
+              "label-lg": ["Space Grotesk"],
+              "headline-sm": ["Noto Serif"],
+              "title-lg": ["Plus Jakarta Sans"],
+              "headline-lg": ["Noto Serif"],
+              "display-mobile": ["Noto Serif"],
+              "headline-lg-mobile": ["Noto Serif"],
+              "title-md": ["Plus Jakarta Sans"],
+            },
+            fontSize: {
+              display: ["48px", { lineHeight: "56px", fontWeight: "600" }],
+              "headline-md": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "600" },
+              ],
+              "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }],
+              "body-md": ["14px", { lineHeight: "22px", fontWeight: "400" }],
+              "label-sm": [
+                "10px",
+                {
+                  lineHeight: "14px",
+                  letterSpacing: "0.1em",
+                  fontWeight: "700",
+                },
+              ],
+              "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }],
+              "label-md": [
+                "12px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.08em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-lg": ["16px", { lineHeight: "26px", fontWeight: "400" }],
+              "label-lg": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  letterSpacing: "0.05em",
+                  fontWeight: "500",
+                },
+              ],
+              "headline-sm": [
+                "20px",
+                { lineHeight: "28px", fontWeight: "600" },
+              ],
+              "title-lg": ["18px", { lineHeight: "26px", fontWeight: "700" }],
+              "headline-lg": [
+                "36px",
+                { lineHeight: "44px", fontWeight: "600" },
+              ],
+              "display-mobile": [
+                "32px",
+                { lineHeight: "40px", fontWeight: "600" },
+              ],
+              "headline-lg-mobile": [
+                "26px",
+                { lineHeight: "34px", fontWeight: "600" },
+              ],
+              "title-md": ["16px", { lineHeight: "24px", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"
+  >
+    <header
+      class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.65)]"
+    >
+      <div
+        class="h-20 w-full px-margin-desktop flex items-center justify-between gap-space-lg"
+      >
+        <div class="flex items-center gap-space-lg shrink-0">
+          <div class="flex items-center gap-space-md">
+            <img
+              alt="BalePath Sacred Balinese Logo"
+              class="h-8 w-auto object-contain"
+              src="https://lh3.googleusercontent.com/aida/AEtjO1W-j3tRGly4kTZXtzSmX2tXPBlLNX_Biii3Y7BAZxs-bya_A8oSxfaHuSE0sdykpJC_uSQ6CVy9TBqSJeVmSpPbsz9phQl3Qv5iWEgLoAb-kMGl4f1smFZLDuN1YSaG2O8KF3wpAzmfd1GPsRBLCMTD47tXce8iIa_0BXAMIW6wZuTDpFAjZhtL85RZVJMHQfqQNrv3jJy5COVz1hiUjeUmUcq613CQOb7cj31nyewwUXwzdI3L63IP-Q"
+            />
+            <div class="flex flex-col">
+              <div class="flex items-center gap-space-xs">
+                <span
+                  class="font-headline-sm text-headline-sm text-primary tracking-tight"
+                  >BalePath</span
+                ><span class="h-1.5 w-1.5 rounded-full bg-emas-prada"></span>
+              </div>
+              <span
+                class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                >Krama &amp; Penataan Spasial Yadnya</span
+              >
+            </div>
+          </div>
+          <div
+            class="hidden xl:flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-high"
+          >
+            <div class="flex items-center gap-1 shrink-0">
+              <span
+                class="inline-block w-2.5 h-2.5 bg-poleng-white border border-poleng-ash"
+              ></span
+              ><span class="inline-block w-2.5 h-2.5 bg-poleng-black"></span>
+            </div>
+            <span
+              class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"
+            ></span
+            ><span class="font-label-sm text-label-sm text-on-surface"
+              >Banjar Ubud Kaja • Status Harmonis</span
+            >
+          </div>
+        </div>
+        <nav
+          class="hidden lg:flex items-center gap-1.5 bg-surface-container/60 backdrop-blur-md border border-outline-variant/30 p-1.5 rounded-xl shadow-inner"
+          data-active-classes="bg-primary-container/15 text-primary border border-primary/40 font-title-sm shadow-sm"
+        >
+          <a
+            class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg font-title-sm text-body-sm text-on-surface-variant hover:text-primary hover:bg-stone-elevated/60 transition-all"
+            data-path="peta-spasial-real-time"
+            href="#"
+            ><svg
+              class="w-4 h-4 opacity-75 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.75"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon
+                points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
+              ></polygon></svg
+            ><span class="">Peta Spasial Real-time</span></a
+          ><a
+            aria-current="page"
+            class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg transition-all bg-primary-container/15 text-primary border border-primary/40 font-title-sm text-body-sm shadow-[0_0_12px_rgba(243,195,92,0.15)]"
+            data-path="kalender-upacara-yadnya"
+            href="#"
+            ><span
+              class="w-1.5 h-1.5 rounded-full bg-emas-prada animate-pulse shrink-0"
+            ></span
+            ><svg
+              class="w-4 h-4 shrink-0 text-emas-prada"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.75"
+              viewBox="0 0 24 24"
+            >
+              <rect height="18" rx="2" width="18" x="3" y="4"></rect>
+              <line x1="16" x2="16" y1="2" y2="6"></line>
+              <line x1="8" x2="8" y1="2" y2="6"></line>
+              <line x1="3" x2="21" y1="10" y2="10"></line>
+              <circle cx="12" cy="15" r="1.5"></circle></svg
+            ><span class="font-semibold tracking-wide"
+              >Kalender Upacara &amp; Yadnya</span
+            ></a
+          ><a
+            class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg font-title-sm text-body-sm text-on-surface-variant hover:text-primary hover:bg-stone-elevated/60 transition-all"
+            data-path="kelola-penutupan-admin-banjar"
+            href="#"
+            ><svg
+              class="w-4 h-4 opacity-75 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.75"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg
+            ><span class="">Kelola Penutupan</span
+            ><span
+              class="text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant uppercase font-label-sm"
+              >Banjar</span
+            ></a
+          ><a
+            class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg font-title-sm text-body-sm text-on-surface-variant hover:text-primary hover:bg-stone-elevated/60 transition-all"
+            data-path="edukasi-budaya-emisi-hijau"
+            href="#"
+            ><svg
+              class="w-4 h-4 opacity-75 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.75"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"
+              ></path>
+              <path
+                d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"
+              ></path></svg
+            ><span class="">Edukasi Budaya &amp; Emisi</span></a
+          >
+        </nav>
+        <div class="flex items-center gap-space-md shrink-0">
+          <div class="hidden sm:flex flex-col text-right">
+            <span class="font-title-sm text-title-sm text-on-surface"
+              >I Wayan Wira Adnyana</span
+            ><span
+              class="font-label-sm text-label-sm text-emas-prada uppercase tracking-wider"
+              >Prajuru Banjar</span
+            >
+          </div>
+          <div class="relative p-0.5 rounded-full bg-surface-container-highest">
+            <img
+              alt="Profile"
+              class="w-8 h-8 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWjaDyw201R1-jyI_51bVkmdEGZTS7gTApydSk06fZv7CNccU8pgVmZGcpcJQFjL0ruZjbkb94n3BS8FWoc6vArPcaf0wdOwliLWuv9hwZ2IsyDGARwlcTkj6kCeNwYieltALUyDGqZDhDTAgui-xpk0QbgbmTkoPKV70I0l9ViFAOuf0vk6tOh_HojeoWVU3ZAtoj05Nrwws1BbuCZb2lxeKdo2bSD6unP-hLQ0aNiPwpwYdF6V4U"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="w-full pt-20 bg-surface min-h-[calc(100vh-10rem)]">
+      <div class="flex flex-col w-full">
+        <!-- BANNER TATA KALA BALI & IDENTITAS SASIH WUKU -->
+        <section
+          class="relative w-full overflow-hidden bg-surface-container-lowest px-margin-desktop py-space-xl"
+        >
+          <div
+            class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#fabc4d_1px,transparent_1px)] [background-size:16px_16px]"
+          ></div>
+          <div
+            class="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-end justify-between gap-space-lg"
+          >
+            <div class="flex flex-col gap-space-xs">
+              <div class="flex items-center gap-space-sm">
+                <span
+                  class="inline-flex items-center justify-center px-space-sm py-space-xs rounded bg-surface-container-high text-emas-prada font-label-sm text-label-sm tracking-widest uppercase"
+                >
+                  Wariga &amp; Kalender Adat Bali
+                </span>
+                <span
+                  class="inline-flex items-center gap-1.5 px-space-sm py-space-xs rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm"
+                >
+                  <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                  Tahun Saka 1946
+                </span>
+              </div>
+              <h1
+                class="font-headline-lg text-headline-lg text-primary tracking-tight mt-space-xs"
+              >
+                Sasih Kadasa • Wuku Medangsia
+              </h1>
+              <p
+                class="font-body-md text-body-md text-on-surface-variant max-w-2xl"
+              >
+                Penyelarasan ruang sakral Yadnya dengan mobilitas publik Ubud
+                Kaja. Pantau transisi rahinan suci Purnama, Tilem, serta
+                pengaturan rekayasa koridor Pecalang demi keselarasan Tri Hita
+                Karana.
+              </p>
+            </div>
+            <!-- KARTU RAHINAN UTAMA & AKSI SINKRON -->
+            <div
+              class="flex flex-wrap items-center gap-space-md bg-surface-container p-space-md rounded-xl shadow-xl w-full lg:w-auto"
+            >
+              <div
+                class="flex items-center gap-space-md pr-space-md border-r-0 lg:border-r border-outline-variant/30"
+              >
+                <div
+                  class="w-12 h-12 rounded-lg bg-emas-prada/15 flex items-center justify-center text-emas-prada"
+                >
+                  <span
+                    class="material-symbols-outlined text-[28px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >brightness_medium</span
+                  >
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-label-sm text-label-sm uppercase tracking-wider text-emas-prada"
+                    >Purnama Kadasa</span
+                  >
+                  <span class="font-title-md text-title-md text-poleng-white"
+                    >Jumat, 11 April 2025</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Puncak Yasa Kerti Pura Samuan Tiga</span
+                  >
+                </div>
+              </div>
+              <div
+                class="flex flex-col sm:flex-row gap-space-xs w-full lg:w-auto"
+              >
+                <button
+                  class="flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded bg-primary text-poleng-black font-label-md text-label-md hover:bg-emas-prada transition-all shadow-md active:scale-95"
+                  id="btnSyncModal"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >calendar_month</span
+                  >
+                  <span class="">Sinkronisasi Kalender</span>
+                </button>
+                <button
+                  class="flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded bg-stone-elevated text-on-surface font-label-md text-label-md hover:bg-surface-bright transition-all"
+                  id="btnFilterReroute"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >alt_route</span
+                  >
+                  <span class="">Rute Khusus Turis</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- KONTEN UTAMA: LAYOUT BENTO GRID (KALENDER KIRI, DAFTAR UPACARA KANAN) -->
+        <section class="w-full px-margin-desktop py-space-xl">
+          <div
+            class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-12 gap-gutter-desktop"
+          >
+            <!-- KOLOM KIRI (7/12): KALENDER INTERAKTIF BULANAN & FILTER STATUS -->
+            <div class="xl:col-span-7 flex flex-col gap-space-lg">
+              <!-- KONTROL KALENDER & INDIKATOR DAMPAK JALAN -->
+              <div
+                class="bg-surface-container-low rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md"
+              >
+                <div
+                  class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md"
+                >
+                  <div>
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-widest text-emas-prada"
+                      >Kalender Yadnya &amp; Mobilitas</span
+                    >
+                    <h2
+                      class="font-headline-sm text-headline-sm text-on-surface"
+                    >
+                      April 2025
+                    </h2>
+                  </div>
+                  <div class="flex items-center gap-space-xs">
+                    <div class="flex bg-surface-container rounded p-0.5">
+                      <button
+                        class="px-space-md py-space-xs rounded font-label-md text-label-md bg-stone-elevated text-primary shadow-sm"
+                        id="tabMonthly"
+                      >
+                        Bulanan
+                      </button>
+                      <button
+                        class="px-space-md py-space-xs rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface"
+                        id="tabWeekly"
+                      >
+                        Mingguan
+                      </button>
+                    </div>
+                    <div class="flex items-center gap-1 ml-2">
+                      <button
+                        class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface hover:bg-stone-elevated"
+                      >
+                        <span class="material-symbols-outlined text-[18px]"
+                          >chevron_left</span
+                        >
+                      </button>
+                      <button
+                        class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface hover:bg-stone-elevated"
+                      >
+                        <span class="material-symbols-outlined text-[18px]"
+                          >chevron_right</span
+                        >
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- INDIKATOR WARNA IMPACT TINGKAT LALU LINTAS -->
+                <div
+                  class="flex flex-wrap items-center gap-space-md pt-space-xs pb-space-sm border-t border-b border-surface-container"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant"
+                    >Derajat Penataan:</span
+                  >
+                  <div class="flex items-center gap-1.5">
+                    <span
+                      class="w-2.5 h-2.5 rounded-full bg-closure-full"
+                    ></span>
+                    <span class="font-body-sm text-body-sm text-on-surface"
+                      >Tutup Total (Upacara Akbar)</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span
+                      class="w-2.5 h-2.5 rounded-full bg-closure-partial"
+                    ></span>
+                    <span class="font-body-sm text-body-sm text-on-surface"
+                      >Buka-Tutup (Melasti / Iringan)</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span
+                      class="w-2.5 h-2.5 rounded-full bg-detour-safe"
+                    ></span>
+                    <span class="font-body-sm text-body-sm text-on-surface"
+                      >Lancar / Yadnya Internal</span
+                    >
+                  </div>
+                </div>
+                <!-- GRID TANGGAL KALENDER BULANAN -->
+                <div class="w-full">
+                  <div
+                    class="grid grid-cols-7 gap-1 text-center font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-space-xs"
+                  >
+                    <span class="py-1">Redite</span>
+                    <span class="py-1">Soma</span>
+                    <span class="py-1">Anggara</span>
+                    <span class="py-1">Buda</span>
+                    <span class="py-1">Wraspati</span>
+                    <span class="py-1">Sukra</span>
+                    <span class="py-1">Saniscara</span>
+                  </div>
+                  <div class="grid grid-cols-7 gap-1">
+                    <!-- Baris 1: Transisi Maret-April -->
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container-lowest/60 text-outline flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm">30</span>
+                      <span class="text-[9px] truncate">Kajeng Kliwon</span>
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container-lowest/60 text-outline flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm">31</span>
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >1</span
+                      >
+                      <div
+                        class="w-2 h-2 rounded-full bg-detour-safe self-end"
+                      ></div>
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >2</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >3</span
+                      >
+                      <div
+                        class="w-2 h-2 rounded-full bg-detour-safe self-end"
+                      ></div>
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >4</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >5</span
+                      >
+                    </div>
+                    <!-- Baris 2: Minggu Melasti & Persiapan -->
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >6</span
+                      >
+                      <span
+                        class="text-[10px] text-emas-prada truncate font-semibold"
+                        >Umanis</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >7</span
+                      >
+                    </div>
+                    <!-- Tgl 8: Upacara Manusa Yadnya (Oranye) -->
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container ring-1 ring-closure-partial hover:bg-stone-elevated cursor-pointer transition-all flex flex-col justify-between relative overflow-hidden"
+                    >
+                      <div class="flex items-center justify-between">
+                        <span
+                          class="font-label-sm text-label-sm text-primary font-bold"
+                          >8</span
+                        >
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-closure-partial"
+                        ></span>
+                      </div>
+                      <div class="flex flex-col">
+                        <span
+                          class="text-[9px] text-closure-partial font-bold truncate"
+                          >Pawiwahan</span
+                        >
+                        <span class="text-[9px] text-on-surface-variant"
+                          >14.00-17.00</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >9</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >10</span
+                      >
+                      <span class="text-[9px] text-emas-prada truncate"
+                        >Penampahan</span
+                      >
+                    </div>
+                    <!-- Tgl 11: Melasti Banjar Ubud Kaja (Oranye Buka Tutup) -->
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-stone-elevated ring-2 ring-primary shadow-lg cursor-pointer transition-all flex flex-col justify-between relative overflow-hidden"
+                    >
+                      <div class="flex items-center justify-between">
+                        <span
+                          class="font-label-sm text-label-sm text-primary font-bold"
+                          >11</span
+                        >
+                        <div class="flex gap-1">
+                          <span
+                            class="w-2 h-2 rounded-full bg-closure-partial"
+                          ></span>
+                          <span
+                            class="w-2 h-2 rounded-full bg-emas-prada"
+                          ></span>
+                        </div>
+                      </div>
+                      <div class="flex flex-col">
+                        <span
+                          class="text-[9px] text-emas-prada font-bold uppercase truncate"
+                          >Melasti</span
+                        >
+                        <span class="text-[9px] text-poleng-white truncate"
+                          >06.00 WITA</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >12</span
+                      >
+                    </div>
+                    <!-- Baris 3: Tgl 13 Ngenteg Linggih Tutup Total (Merah) -->
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container ring-1 ring-closure-full hover:bg-stone-elevated cursor-pointer transition-all flex flex-col justify-between relative overflow-hidden"
+                    >
+                      <div class="flex items-center justify-between">
+                        <span
+                          class="font-label-sm text-label-sm text-error font-bold"
+                          >13</span
+                        >
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-closure-full animate-pulse"
+                        ></span>
+                      </div>
+                      <div class="flex flex-col">
+                        <span
+                          class="text-[9px] text-closure-full font-bold truncate"
+                          >Ngenteg Linggih</span
+                        >
+                        <span class="text-[9px] text-on-surface-variant"
+                          >Tutup Total</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >14</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >15</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >16</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >17</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >18</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >19</span
+                      >
+                    </div>
+                    <!-- Baris 4: Tgl 20 - 26 -->
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >20</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >21</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >22</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >23</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >24</span
+                      >
+                      <div
+                        class="w-2 h-2 rounded-full bg-detour-safe self-end"
+                      ></div>
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >25</span
+                      >
+                      <span class="text-[9px] text-on-surface-variant truncate"
+                        >Tilem</span
+                      >
+                    </div>
+                    <div
+                      class="p-2 min-h-[72px] rounded bg-surface-container hover:bg-stone-elevated cursor-pointer transition-colors flex flex-col justify-between"
+                    >
+                      <span class="font-label-sm text-label-sm text-on-surface"
+                        >26</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- MINI FOOTER KALENDER: PERINGATAN KONDISI LAPANGAN -->
+                <div
+                  class="bg-surface-container p-space-sm rounded-lg flex items-center gap-space-sm"
+                >
+                  <div class="flex items-center gap-1 shrink-0">
+                    <span
+                      class="inline-block w-2.5 h-2.5 bg-poleng-white"
+                    ></span>
+                    <span
+                      class="inline-block w-2.5 h-2.5 bg-poleng-black"
+                    ></span>
+                  </div>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Setiap penutupan dikawal secara sah oleh
+                    <strong class="text-on-surface"
+                      >Sipandu Beradat &amp; Pecalang Adat Ubud Kaja</strong
+                    >. Mohon patuhi isyarat prada dan rute alternatif.
+                  </p>
+                </div>
+              </div>
+              <!-- VISUAL STATISTIK EFISIENSI PENGALIHAN MOBILITAS -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+                <div
+                  class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between"
+                >
+                  <div
+                    class="flex items-center justify-between text-emas-prada mb-space-sm"
+                  >
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-wider"
+                      >Durasi Pengalihan Rata-rata</span
+                    >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >timer</span
+                    >
+                  </div>
+                  <span
+                    class="font-display text-[32px] leading-tight text-on-surface"
+                    >3.5 Jam</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant mt-1"
+                    >Mengurangi stagnasi pusat desa Ubud</span
+                  >
+                </div>
+                <div
+                  class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between"
+                >
+                  <div
+                    class="flex items-center justify-between text-tertiary mb-space-sm"
+                  >
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-wider"
+                      >Kepatuhan Kantong Parkir</span
+                    >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >local_parking</span
+                    >
+                  </div>
+                  <span
+                    class="font-display text-[32px] leading-tight text-on-surface"
+                    >94.2%</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant mt-1"
+                    >Sentra Lapangan Astina &amp; Puri</span
+                  >
+                </div>
+                <div
+                  class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between"
+                >
+                  <div
+                    class="flex items-center justify-between text-secondary mb-space-sm"
+                  >
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-wider"
+                      >Emisi Terhindar (Idling)</span
+                    >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >eco</span
+                    >
+                  </div>
+                  <span
+                    class="font-display text-[32px] leading-tight text-on-surface"
+                    >1.8 Ton</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant mt-1"
+                    >Melalui bypass rute alternatif</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- KOLOM KANAN (5/12): DAFTAR UPACARA TERDEKAT (UPCOMING CEREMONIES) BESERTA EDUKASI BUDAYA -->
+            <div class="xl:col-span-5 flex flex-col gap-space-lg">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-xs">
+                  <span class="font-headline-sm text-headline-sm text-primary"
+                    >Sorotan Yadnya Terdekat</span
+                  >
+                  <span
+                    class="w-2 h-2 rounded-full bg-closure-full animate-ping"
+                  ></span>
+                </div>
+                <span
+                  class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                  >3 Acara Terjadwal</span
+                >
+              </div>
+              <div class="flex flex-col gap-space-lg">
+                <!-- KARTU 1: MELASTI (ORANYE / BUKA-TUTUP) -->
+                <article
+                  class="bg-surface-container-low rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md transition-all hover:bg-stone-surface"
+                >
+                  <div class="flex items-start justify-between gap-space-sm">
+                    <div class="flex flex-col">
+                      <div class="flex items-center gap-space-xs mb-1">
+                        <span
+                          class="px-space-xs py-0.5 rounded bg-closure-partial/20 text-marigold-kuning font-label-sm text-label-sm tracking-wider uppercase font-bold"
+                        >
+                          Buka-Tutup Bertahap
+                        </span>
+                        <span
+                          class="font-label-sm text-label-sm text-on-surface-variant"
+                          >• Dewa Yadnya</span
+                        >
+                      </div>
+                      <h3
+                        class="font-headline-sm text-headline-sm text-emas-prada"
+                      >
+                        Upacara Melasti Banjar Ubud Kaja ke Segara
+                      </h3>
+                    </div>
+                    <span
+                      class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary shrink-0"
+                    >
+                      <span class="material-symbols-outlined text-[20px]"
+                        >water</span
+                      >
+                    </span>
+                  </div>
+                  <div
+                    class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm p-space-md bg-surface-container rounded-lg"
+                  >
+                    <div class="flex flex-col">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                        >Jadwal Iringan</span
+                      >
+                      <span
+                        class="font-title-sm text-title-sm text-poleng-white flex items-center gap-1 mt-0.5"
+                      >
+                        <span
+                          class="material-symbols-outlined text-[16px] text-primary"
+                          >schedule</span
+                        >
+                        Jumat, 06.00 - 10.00 WITA
+                      </span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                        >Rekayasa Jalur</span
+                      >
+                      <span
+                        class="font-title-sm text-title-sm text-secondary flex items-center gap-1 mt-0.5"
+                      >
+                        <span class="material-symbols-outlined text-[16px]"
+                          >directions_car</span
+                        >
+                        Roda 4 via Bypass Tegallalang
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="relative h-36 w-full rounded-lg overflow-hidden bg-surface-container-highest"
+                  >
+                    <img
+                      alt="Upacara Melasti Banjar Ubud Kaja ke Segara"
+                      class="w-full h-full object-cover"
+                      data-alt="Balinese sacred Melasti ritual procession"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8my7s--znVp59qQpv4LS8r3rIQRpjWbxFq9G7x1czDPtZ2v8UASRRJZrIEVKVXhylGzdvSGkCbb_PEJMgGrZuZJIbAHHKpEjFeVPOg3T_zT8YNbswmPT3CcGY4O6oL9LyRbPqu5gKtJ7gLBecdlnrOlqAHp8rNAPxR5AdLaCYVWRxz4MvBxpBNf-G20Tk5ZHBq3Lt8bmzgENd81izIT0PlsZg9mXjb0aB6QmsBVrItIZp7OIgJSP4"
+                    />
+                    <div
+                      class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"
+                    ></div>
+                    <div
+                      class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-poleng-white"
+                    >
+                      <span
+                        class="font-label-sm text-label-sm flex items-center gap-1"
+                      >
+                        <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                        Pos Jaga Pecalang: Catus Pata Ubud
+                      </span>
+                      <span
+                        class="font-label-sm text-label-sm text-emas-prada bg-surface-container-lowest/80 px-2 py-0.5 rounded"
+                        >Prioritas Ambulans Siaga</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="p-space-md rounded-lg bg-surface-container-highest/60 flex flex-col gap-space-xs"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <span
+                          class="material-symbols-outlined text-emas-prada text-[18px]"
+                          >temple_hindu</span
+                        >
+                        <span class="font-title-sm text-title-sm text-primary"
+                          >Makna Budaya &amp; Etiket Krama</span
+                        >
+                      </div>
+                      <button
+                        class="text-on-surface-variant hover:text-on-surface text-label-sm font-label-sm uppercase"
+                        onclick="this.parentElement.nextElementSibling.classList.toggle('hidden')"
+                      >
+                        Lihat Panduan
+                      </button>
+                    </div>
+                    <div
+                      class="flex flex-col gap-space-xs mt-1 text-body-sm text-on-surface-variant"
+                    >
+                      <p class="">
+                        <strong>Melasti</strong> adalah pensucian pratima Ida
+                        Bhatara ke samudra/mata air suci sebelum Purnama. Krama
+                        berjalan kaki mengiringi usungan suci.
+                      </p>
+                      <div
+                        class="flex flex-wrap items-center gap-space-xs mt-1"
+                      >
+                        <span
+                          class="px-2 py-0.5 rounded bg-surface-container text-janur-soft text-label-sm"
+                          >Kamen / Sarung Sopan</span
+                        >
+                        <span
+                          class="px-2 py-0.5 rounded bg-surface-container text-janur-soft text-label-sm"
+                          >Dilarang Memotong Iringan</span
+                        >
+                        <span
+                          class="px-2 py-0.5 rounded bg-surface-container text-janur-soft text-label-sm"
+                          >Matikan Suara Klakson</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <!-- KARTU 2: KARYA NGENTEG LINGGIH (MERAH / TUTUP TOTAL) -->
+                <article
+                  class="bg-surface-container-low rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md transition-all hover:bg-stone-surface"
+                >
+                  <div class="flex items-start justify-between gap-space-sm">
+                    <div class="flex flex-col">
+                      <div class="flex items-center gap-space-xs mb-1">
+                        <span
+                          class="px-space-xs py-0.5 rounded bg-closure-full/20 text-closure-full font-label-sm text-label-sm tracking-wider uppercase font-bold"
+                        >
+                          Tutup Total Jalur Utama
+                        </span>
+                        <span
+                          class="font-label-sm text-label-sm text-on-surface-variant"
+                          >• Karya Agung</span
+                        >
+                      </div>
+                      <h3
+                        class="font-headline-sm text-headline-sm text-emas-prada"
+                      >
+                        Karya Ngenteg Linggih Pura Penataran
+                      </h3>
+                    </div>
+                    <span
+                      class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-closure-full shrink-0"
+                    >
+                      <span class="material-symbols-outlined text-[20px]"
+                        >block</span
+                      >
+                    </span>
+                  </div>
+                  <div
+                    class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm p-space-md bg-surface-container rounded-lg"
+                  >
+                    <div class="flex flex-col">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                        >Waktu Penutupan</span
+                      >
+                      <span
+                        class="font-title-sm text-title-sm text-poleng-white flex items-center gap-1 mt-0.5"
+                      >
+                        <span
+                          class="material-symbols-outlined text-[16px] text-closure-full"
+                          >schedule</span
+                        >
+                        Minggu, 13.00 - 21.00 WITA
+                      </span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                        >Manajemen Arus</span
+                      >
+                      <span
+                        class="font-title-sm text-title-sm text-secondary flex items-center gap-1 mt-0.5"
+                      >
+                        <span class="material-symbols-outlined text-[16px]"
+                          >turn_sharp_right</span
+                        >
+                        Satu Arah via Jl. Suweta
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="relative h-36 w-full rounded-lg overflow-hidden bg-surface-container-highest"
+                  >
+                    <img
+                      alt="Karya Ngenteg Linggih Pura Penataran"
+                      class="w-full h-full object-cover"
+                      data-alt="Majestic Balinese Pura Penataran"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1H_oGx5iRP1H8RpOZUv5dsNn70rKxP28sBPia_hBVvDbeQZ1Wz3JBesOlasL1yDMMuPqENieTLiYi7JjS1zMONvOCI0rTiollnI7GO-sWDKZLI2z9FqafxpV8qFNq_BqsJgvYT2APuXx2cSOkQNUx6pOqXY-aBfLmhO0M1TDRUldamk2VbqsOjHQgiYXMXJik58j04AM2eKwlD3V8TKjhTIsEgWIDgyFMehgUWX0kZr_pghOnCUWO"
+                    />
+                    <div
+                      class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"
+                    ></div>
+                    <div
+                      class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-poleng-white"
+                    >
+                      <span
+                        class="font-label-sm text-label-sm flex items-center gap-1"
+                      >
+                        <span
+                          class="w-2 h-2 rounded-full bg-closure-full"
+                        ></span>
+                        Barikade Pecalang: Simpang Hanoman
+                      </span>
+                      <span
+                        class="font-label-sm text-label-sm text-tertiary bg-surface-container-lowest/80 px-2 py-0.5 rounded"
+                        >Shuttle Listrik Komuter Tersedia</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="p-space-md rounded-lg bg-surface-container-highest/60 flex flex-col gap-space-xs"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <span
+                          class="material-symbols-outlined text-emas-prada text-[18px]"
+                          >verified_user</span
+                        >
+                        <span class="font-title-sm text-title-sm text-primary"
+                          >Protokol Masuk Area Pura</span
+                        >
+                      </div>
+                      <button
+                        class="text-on-surface-variant hover:text-on-surface text-label-sm font-label-sm uppercase"
+                        onclick="this.parentElement.nextElementSibling.classList.toggle('hidden')"
+                      >
+                        Lihat Panduan
+                      </button>
+                    </div>
+                    <div
+                      class="flex flex-col gap-space-xs mt-1 text-body-sm text-on-surface-variant"
+                    >
+                      <p class="">
+                        <strong>Ngenteg Linggih</strong> merupakan upacara
+                        penyucian dan penetapan kedudukan linggih Bhatara di
+                        pura setiap kelipatan dekade. Pengunjung wajib
+                        mengenakan selendang senteng kuning di pinggang.
+                      </p>
+                      <div
+                        class="flex flex-wrap items-center gap-space-xs mt-1"
+                      >
+                        <span
+                          class="px-2 py-0.5 rounded bg-surface-container text-janur-soft text-label-sm"
+                          >Senteng / Selendang Kuning</span
+                        >
+                        <span
+                          class="px-2 py-0.5 rounded bg-surface-container text-janur-soft text-label-sm"
+                          >Dilarang Masuk Utama Mandala bagi Non-Pemuja</span
+                        >
+                        <span
+                          class="px-2 py-0.5 rounded bg-surface-container text-janur-soft text-label-sm"
+                          >Zona Tenang Meditasi</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <!-- KARTU 3: MANUSA YADNYA PAWIWAHAN (ORANYE / KANTONG PARKIR) -->
+                <article
+                  class="bg-surface-container-low rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md transition-all hover:bg-stone-surface"
+                >
+                  <div class="flex items-start justify-between gap-space-sm">
+                    <div class="flex flex-col">
+                      <div class="flex items-center gap-space-xs mb-1">
+                        <span
+                          class="px-space-xs py-0.5 rounded bg-marigold-kuning/20 text-marigold-kuning font-label-sm text-label-sm tracking-wider uppercase font-bold"
+                        >
+                          Penataan Parkir Khusus
+                        </span>
+                        <span
+                          class="font-label-sm text-label-sm text-on-surface-variant"
+                          >• Manusa Yadnya</span
+                        >
+                      </div>
+                      <h3
+                        class="font-headline-sm text-headline-sm text-emas-prada"
+                      >
+                        Pawiwahan Krama Banjar Ubud Kaja
+                      </h3>
+                    </div>
+                    <span
+                      class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary shrink-0"
+                    >
+                      <span class="material-symbols-outlined text-[20px]"
+                        >favorite</span
+                      >
+                    </span>
+                  </div>
+                  <div
+                    class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm p-space-md bg-surface-container rounded-lg"
+                  >
+                    <div class="flex flex-col">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                        >Waktu Kegiatan</span
+                      >
+                      <span
+                        class="font-title-sm text-title-sm text-poleng-white flex items-center gap-1 mt-0.5"
+                      >
+                        <span
+                          class="material-symbols-outlined text-[16px] text-primary"
+                          >schedule</span
+                        >
+                        Selasa, 14.00 - 17.00 WITA
+                      </span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                        >Solusi Parkir</span
+                      >
+                      <span
+                        class="font-title-sm text-title-sm text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <span class="material-symbols-outlined text-[16px]"
+                          >local_parking</span
+                        >
+                        Kantong Lapangan Astina
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="relative h-36 w-full rounded-lg overflow-hidden bg-surface-container-highest"
+                  >
+                    <img
+                      alt="Pawiwahan Krama Banjar Ubud Kaja"
+                      class="w-full h-full object-cover"
+                      data-alt="Traditional Balinese wedding"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzsdzW8sE_VA48PJFB6N6gfhmwM5stMH2K_ASmBga4apaUe4O5lUxtCdIovbhjhESJpjdR_3JLmixWePt64LuuX3wsevFNRofjNkj4XPAOBper4-JV3dNLFAKyI1Nkt8XNz0gH6eJ1lOH6zThUozTJlE1nuq_08uNOwKBtYgoPDlTeVQybYKSyPzyYmZyIdR2krMGYUTFlUwxQs_bqji0BksOygwkIBkXQZ6vkDroPhfVulLB5V1w8"
+                    />
+                    <div
+                      class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"
+                    ></div>
+                    <div
+                      class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-poleng-white"
+                    >
+                      <span
+                        class="font-label-sm text-label-sm flex items-center gap-1"
+                      >
+                        <span
+                          class="w-2 h-2 rounded-full bg-marigold-kuning"
+                        ></span>
+                        Parkir Badan Jalan Dilarang
+                      </span>
+                      <span
+                        class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-lowest/80 px-2 py-0.5 rounded"
+                        >Roda 2 &amp; Roda 4 Masuk Astina</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="p-space-md rounded-lg bg-surface-container-highest/60 flex flex-col gap-space-xs"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <span
+                          class="material-symbols-outlined text-emas-prada text-[18px]"
+                          >handshake</span
+                        >
+                        <span class="font-title-sm text-title-sm text-primary"
+                          >Etika Bertamu &amp; Menghormati Prosesi</span
+                        >
+                      </div>
+                      <button
+                        class="text-on-surface-variant hover:text-on-surface text-label-sm font-label-sm uppercase"
+                        onclick="this.parentElement.nextElementSibling.classList.toggle('hidden')"
+                      >
+                        Lihat Panduan
+                      </button>
+                    </div>
+                    <div
+                      class="flex flex-col gap-space-xs mt-1 text-body-sm text-on-surface-variant"
+                    >
+                      <p class="">
+                        <strong>Pawiwahan</strong> adalah ikatan suci lahir
+                        batin pengantin menurut hukum adat Hindu Bali. Mohon
+                        pengendara menahan laju kendaraan saat melewati depan
+                        gerbang angkul-angkul griya yang menggelar resepsi.
+                      </p>
+                      <div
+                        class="flex flex-wrap items-center gap-space-xs mt-1"
+                      >
+                        <span
+                          class="px-2 py-0.5 rounded bg-surface-container text-janur-soft text-label-sm"
+                          >Kecepatan Maksimal 20 km/jam</span
+                        >
+                        <span
+                          class="px-2 py-0.5 rounded bg-surface-container text-janur-soft text-label-sm"
+                          >Hormati Arahan Pecalang Muda</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- MODAL SINKRONISASI KE GOOGLE & APPLE CALENDAR -->
+      <div
+        class="fixed inset-0 z-50 bg-volcanic-basalt/80 backdrop-blur-md hidden items-center justify-center p-space-md"
+        id="syncModal"
+      >
+        <div
+          class="bg-surface-container-low max-w-lg w-full rounded-2xl p-space-xl shadow-2xl flex flex-col gap-space-lg relative ring-1 ring-primary/30"
+        >
+          <!-- HEADER MODAL -->
+          <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-emas-prada"
+                  >sync</span
+                >
+                <span class="font-headline-sm text-headline-sm text-primary"
+                  >Sinkronisasi Jadwal Upacara</span
+                >
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Dapatkan peringatan otomatis penutupan jalan dan jadwal
+                persembahyangan langsung di perangkat Anda sebelum berkendara.
+              </p>
+            </div>
+            <button
+              class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface"
+              id="btnCloseSync"
+            >
+              <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+          </div>
+          <!-- OPSI PILIHAN KALENDER -->
+          <div class="flex flex-col gap-space-sm">
+            <button
+              class="flex items-center justify-between p-space-md rounded-xl bg-surface-container hover:bg-stone-elevated transition-colors text-left group"
+            >
+              <div class="flex items-center gap-space-md">
+                <div
+                  class="w-10 h-10 rounded-lg bg-[#4285F4]/20 flex items-center justify-center text-[#4285F4]"
+                >
+                  <span class="material-symbols-outlined text-[24px]"
+                    >event_upcoming</span
+                  >
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-title-sm text-title-sm text-poleng-white group-hover:text-primary transition-colors"
+                    >Google Calendar</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Update real-time via URL iCal terintegrasi</span
+                  >
+                </div>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </button>
+            <button
+              class="flex items-center justify-between p-space-md rounded-xl bg-surface-container hover:bg-stone-elevated transition-colors text-left group"
+            >
+              <div class="flex items-center gap-space-md">
+                <div
+                  class="w-10 h-10 rounded-lg bg-[#A2AAAD]/20 flex items-center justify-center text-poleng-white"
+                >
+                  <span class="material-symbols-outlined text-[24px]"
+                    >calendar_today</span
+                  >
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-title-sm text-title-sm text-poleng-white group-hover:text-primary transition-colors"
+                    >Apple Calendar (iOS / macOS)</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Langganan kalender .ics dengan push alert</span
+                  >
+                </div>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </button>
+            <button
+              class="flex items-center justify-between p-space-md rounded-xl bg-surface-container hover:bg-stone-elevated transition-colors text-left group"
+            >
+              <div class="flex items-center gap-space-md">
+                <div
+                  class="w-10 h-10 rounded-lg bg-emas-prada/20 flex items-center justify-center text-emas-prada"
+                >
+                  <span class="material-symbols-outlined text-[24px]"
+                    >download</span
+                  >
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-title-sm text-title-sm text-poleng-white group-hover:text-primary transition-colors"
+                    >Unduh Berkas ICS Statis</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Jadwal Sasih Kadasa untuk Outlook &amp; lainnya</span
+                  >
+                </div>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </button>
+          </div>
+          <!-- FILTER KATEGORI NOTIFIKASI -->
+          <div
+            class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded-xl"
+          >
+            <span
+              class="font-label-sm text-label-sm uppercase tracking-wider text-emas-prada"
+              >Preferensi Notifikasi Pintar</span
+            >
+            <label
+              class="flex items-center justify-between cursor-pointer py-1"
+            >
+              <span class="font-body-sm text-body-sm text-on-surface"
+                >Peringatan Tutup Total (H-1 &amp; 2 Jam Sebelum)</span
+              >
+              <input
+                checked=""
+                class="accent-primary w-4 h-4 rounded"
+                type="checkbox"
+              />
+            </label>
+            <label
+              class="flex items-center justify-between cursor-pointer py-1"
+            >
+              <span class="font-body-sm text-body-sm text-on-surface"
+                >Peringatan Melasti &amp; Iringan Pawai</span
+              >
+              <input
+                checked=""
+                class="accent-primary w-4 h-4 rounded"
+                type="checkbox"
+              />
+            </label>
+            <label
+              class="flex items-center justify-between cursor-pointer py-1"
+            >
+              <span class="font-body-sm text-body-sm text-on-surface"
+                >Saran Rute Hijau &amp; Bebas Macet</span
+              >
+              <input class="accent-primary w-4 h-4 rounded" type="checkbox" />
+            </label>
+          </div>
+          <div class="flex items-center justify-end gap-space-sm">
+            <button
+              class="px-space-md py-space-sm rounded bg-surface-container text-on-surface font-label-md text-label-md hover:bg-stone-elevated transition-colors"
+              id="btnCancelModal"
+            >
+              Batal
+            </button>
+            <button
+              class="px-space-md py-space-sm rounded bg-primary text-poleng-black font-label-md text-label-md hover:bg-emas-prada transition-all shadow-md"
+              id="btnConfirmSync"
+            >
+              Mulai Sinkronisasi
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- SCRIPT LOGIKA SEDERHANA INTERAKSI MODAL & TABS -->
+      <script>
+        (function () {
+          const modal = document.getElementById("syncModal");
+          const openBtn = document.getElementById("btnSyncModal");
+          const closeBtn = document.getElementById("btnCloseSync");
+          const cancelBtn = document.getElementById("btnCancelModal");
+          const confirmBtn = document.getElementById("btnConfirmSync");
+
+          function openModal() {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+          }
+
+          function closeModal() {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+          }
+
+          if (openBtn) openBtn.addEventListener("click", openModal);
+          if (closeBtn) closeBtn.addEventListener("click", closeModal);
+          if (cancelBtn) cancelBtn.addEventListener("click", closeModal);
+          if (confirmBtn) {
+            confirmBtn.addEventListener("click", () => {
+              alert(
+                "Jadwal Sasih Kadasa berhasil disinkronkan ke kalender perangkat Anda.",
+              );
+              closeModal();
+            });
+          }
+
+          // Tab switcher mockup
+          const tabM = document.getElementById("tabMonthly");
+          const tabW = document.getElementById("tabWeekly");
+
+          if (tabM && tabW) {
+            tabM.addEventListener("click", () => {
+              tabM.className =
+                "px-space-md py-space-xs rounded font-label-md text-label-md bg-stone-elevated text-primary shadow-sm";
+              tabW.className =
+                "px-space-md py-space-xs rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface";
+            });
+            tabW.addEventListener("click", () => {
+              tabW.className =
+                "px-space-md py-space-xs rounded font-label-md text-label-md bg-stone-elevated text-primary shadow-sm";
+              tabM.className =
+                "px-space-md py-space-xs rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface";
+            });
+          }
+        })();
+      </script>
+    </main>
+    <footer
+      class="w-full bg-surface-container-lowest border-t border-outline-variant/30 py-space-xl shadow-[0_-8px_24px_rgba(0,0,0,0.5)]"
+    >
+      <div
+        class="max-w-7xl mx-auto px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-lg"
+      >
+        <div class="flex items-center gap-space-md">
+          <div class="flex items-center gap-1 shrink-0">
+            <span class="inline-block w-3 h-3 bg-poleng-white"></span
+            ><span class="inline-block w-3 h-3 bg-poleng-ash"></span
+            ><span class="inline-block w-3 h-3 bg-poleng-black"></span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            © 2025 BalePath Bali. Melestarikan Keharmonisan Ruang, Yadnya,
+            &amp; Mobilitas Bersama.
+          </p>
+        </div>
+        <div class="flex items-center gap-space-lg">
+          <span
+            class="font-label-sm text-label-sm text-emas-prada uppercase tracking-widest"
+            >Tri Hita Karana Spatial GIS</span
+          ><span class="font-body-sm text-body-sm text-on-surface-variant"
+            >Banjar Ubud Kaja, Gianyar</span
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
