@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { AuthProvider } from "@/presentation/providers/auth-provider";
+import { BanjarEventsProvider } from "@/presentation/providers/banjar-events-provider";
 import { EventsProvider } from "@/presentation/providers/events-provider";
 import { TranslationProvider } from "@/presentation/i18n/translation-provider";
 import { getDictionary } from "@/presentation/i18n/dictionary";
@@ -21,5 +22,5 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
   const { locale: value } = await params;
   if (!isLocale(value)) notFound();
   const locale: Locale = value;
-  return <html lang={locale} suppressHydrationWarning><body suppressHydrationWarning><TranslationProvider locale={locale} t={getDictionary(locale)}><AuthProvider><EventsProvider>{children}</EventsProvider></AuthProvider></TranslationProvider></body></html>;
+  return <html lang={locale} suppressHydrationWarning><body suppressHydrationWarning><TranslationProvider locale={locale} t={getDictionary(locale)}><AuthProvider><EventsProvider><BanjarEventsProvider>{children}</BanjarEventsProvider></EventsProvider></AuthProvider></TranslationProvider></body></html>;
 }
