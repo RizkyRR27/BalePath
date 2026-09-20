@@ -4,6 +4,14 @@ export type RoadSegmentStatus =
   | "HANYA_MOTOR"
   | "JALUR_ALTERNATIF";
 
+/**
+ * Alias sesuai kontrak antarmuka bersama (spesifikasi fitur):
+ * `RoadStatus` dipakai di `RoadSegment.status` dan dibaca modul admin & publik.
+ * Nilai literal dipertahankan dalam Bahasa Indonesia agar konsisten dengan
+ * SEGMENT_META, seeds, validasi, dan kamus i18n yang sudah ada.
+ */
+export type RoadStatus = RoadSegmentStatus;
+
 export type RoadSegment = {
   id: string;
   status: RoadSegmentStatus;

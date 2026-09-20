@@ -1,19 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { CalendarDays, Clock3, Flower2, MapPin } from "lucide-react";
 import { useBanjarEvents } from "@/presentation/providers/banjar-events-provider";
+import type { BanjarEvent } from "@/domain/entities/banjar-event";
 import { SEGMENT_META } from "@/domain/entities/road-segment";
 import { formatDate } from "@/domain/formatters/format-date";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
 import { PublicRoadMap } from "@/presentation/components/public-road-map";
 
+/** Tanggal hari ini (waktu lokal perangkat) dalam format YYYY-MM-DD. */
+export function todayIso(): string {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${now.getFullYear()}-${month}-${day}`;
+}
+
+/** Event mencakup tanggal pilihan bila selectedDate berada dalam [startDate, endDate]. */
+export function coversDate(event: BanjarEvent, selectedDate: string): boolean {
+  return event.startDate <= selectedDate && selectedDate <= event.endDate;
+}
+
 export function PublicEventMapSection() {
   const { events, ready } = useBanjarEvents();
   const { locale, t } = useTranslation();
+  const [selectedDate, setSelectedDate] = useState<string>(() => todayIso());
   const [selectedId, setSelectedId] = useState<string>();
 
-  const selected = events.find((event) => event.id === selectedId) ?? events[0];
+  // Peta TIDAK memunculkan semua penutupan sekaligus — hanya event yang
+  // rentang jadwalnya mencakup tanggal yang dipilih user.
+  const filtered = useMemo(
+    () => events.filter((event) => coversDate(event, selectedDate)),
+    [events, selectedDate],
+  );
+
+  // Seleksi derivatif: bila id tersimpan tak lagi ada di hasil filter tanggal,
+  // otomatis jatuh ke event pertama — tanpa effect/setState berantai.
+  const selected = filtered.find((event) => event.id === selectedId) ?? filtered[0];
   const selectedStatuses = selected
     ? [...new Set(selected.roadSegments.map((segment) => segment.status))]
     : [];
@@ -24,26 +48,48 @@ export function PublicEventMapSection() {
         <div>
           <p className="public-eyebrow">{t.map.interactiveEyebrow}</p>
           <h2 id="interactive-title" className="public-serif-title">
-            {t.map.interactiveTitle} <span className="public-count">{ready ? events.length : 0}</span>
+            {t.map.interactiveTitle} <span className="public-count">{ready ? filtered.length : 0}</span>
           </h2>
         </div>
       </div>
       <p className="public-interactive-lead">{t.map.interactiveLead}</p>
 
+      <div className="public-date-filter">
+        <label>
+          <CalendarDays size={17} aria-hidden="true" />
+          <span className="public-sr-only">{t.map.pickDate}</span>
+          <input
+            aria-label={t.map.pickDate}
+            type="date"
+            value={selectedDate}
+            onChange={(event) => setSelectedDate(event.target.value)}
+          />
+        </label>
+        <button type="button" className="public-action public-demo-reset" onClick={() => setSelectedDate(todayIso())}>
+          {t.map.todayLabel}
+        </button>
+        <span className="public-filter-hint" aria-live="polite">
+          {t.map.scheduleNote} {formatDate(selectedDate, locale)}
+        </span>
+      </div>
+
       {!ready ? (
         <p role="status" className="public-empty">
           {t.map.preparing}
         </p>
-      ) : events.length === 0 ? (
+      ) : filtered.length === 0 ? (
         <div className="public-empty">
           <CalendarDays size={32} aria-hidden="true" />
-          <h3>{t.map.noSchedule}</h3>
-          <p>{t.map.noPublicEvents}</p>
+          <span className="public-empty-badge">{t.map.noClosureOnDate}</span>
+          <p>{t.map.noClosureOnDateText}</p>
+          <button type="button" className="public-action" onClick={() => setSelectedDate(todayIso())}>
+            {t.map.todayLabel}
+          </button>
         </div>
       ) : (
         <>
           <PublicRoadMap
-            events={events}
+            events={filtered}
             selectedId={selected?.id}
             onSelect={setSelectedId}
             locale={locale}
@@ -53,7 +99,7 @@ export function PublicEventMapSection() {
           </p>
 
           <div className="public-interactive-list" role="group" aria-label={t.map.interactiveTitle}>
-            {events.map((event) => (
+            {filtered.map((event) => (
               <button
                 key={event.id}
                 type="button"

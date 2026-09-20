@@ -75,4 +75,38 @@ export const banjarEventSeeds: BanjarEvent[] = [
     ],
     createdAt: "2026-09-17T05:00:00.000Z",
   },
+  {
+    id: "BE-003",
+    title: "Karya Agung & Pawai Gebogan",
+    banjarName: "Banjar Padangtegal",
+    startDate: "2026-09-19",
+    endDate: "2026-09-21",
+    startTime: "08:00",
+    endTime: "18:00",
+    description:
+      "Rangkaian karya selama tiga hari dengan pawai gebogan di sekitar pura. Contoh kegiatan multi-hari untuk menguji filter rentang tanggal (muncul pada 19, 20, maupun 21 September).",
+    roadSegments: [
+      {
+        id: "BE-003-seg-1",
+        status: "HANYA_MOTOR",
+        coordinates: [
+          [-8.5085, 115.259],
+          [-8.51, 115.261],
+          [-8.5115, 115.2635],
+        ],
+        createdAt: "2026-09-17T06:00:00.000Z",
+      },
+      {
+        id: "BE-003-seg-2",
+        status: "JALUR_ALTERNATIF",
+        coordinates: [
+          [-8.505, 115.264],
+          [-8.507, 115.2655],
+          [-8.509, 115.267],
+        ],
+        createdAt: "2026-09-17T06:05:00.000Z",
+      },
+    ],
+    createdAt: "2026-09-17T06:00:00.000Z",
+  },
 ];

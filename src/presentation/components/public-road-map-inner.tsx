@@ -84,6 +84,12 @@ export function PublicRoadMapInner({ events, selectedId, onSelect, locale }: Pub
                   <span className="admin-road-badge" style={{ backgroundColor: meta.color }}>
                     {meta.label}
                   </span>
+                  {event.description && (
+                    <>
+                      <br />
+                      <span>{event.description}</span>
+                    </>
+                  )}
                 </Popup>
               </Polyline>
             );
@@ -106,6 +112,16 @@ export function PublicRoadMapInner({ events, selectedId, onSelect, locale }: Pub
               <span>
                 {event.banjarName} · {scheduleOf(event, locale)}
               </span>
+              <br />
+              {[...new Set(event.roadSegments.map((segment) => segment.status))].map((status) => (
+                <span
+                  key={status}
+                  className="admin-road-badge"
+                  style={{ backgroundColor: SEGMENT_META[status].color, marginRight: 4 }}
+                >
+                  {SEGMENT_META[status].label}
+                </span>
+              ))}
               {event.description && (
                 <>
                   <br />

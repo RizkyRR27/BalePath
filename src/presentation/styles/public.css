@@ -125,6 +125,13 @@
 .public-agenda-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 5px 14px; margin-top: auto; border-top: 1px solid #3a3428; padding-top: 13px; font-size: 10px; color: #beb095; }
 .public-no-results { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 16px; padding: 28px; border: 1px dashed #494032; border-radius: 5px; color: #bfb094; }
 .public-no-results p { margin: 0; font-size: 12px; }
+.public-date-filter { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; padding: 12px 14px; margin-bottom: 18px; background: #1b1a18; border: 1px solid var(--public-line); border-radius: 6px; }
+.public-date-filter label { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 14px; color: var(--public-gold); background: #121211; border: 1px solid #39352e; border-radius: 4px; font-size: 12px; }
+.public-date-filter label:focus-within { border-color: var(--public-gold); box-shadow: 0 0 0 2px #f3c35c25; }
+.public-date-filter input[type="date"] { min-height: 44px; border: 0; outline: none; color: #e1d9cb; background: transparent; font: inherit; color-scheme: dark; }
+.public-date-filter input[type="date"]:focus-visible { outline: none; }
+.public-date-filter .public-filter-hint { color: #b4aa99; font-size: 11px; }
+.public-empty-badge { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 6px 12px; border: 1px solid #66502b; border-radius: 999px; background: #292317; color: #e4c889; font-size: 11px; font-weight: 700; letter-spacing: .02em; }
 .public-harmony { display: flex; align-items: center; gap: 21px; padding: 28px 30px; margin: 38px 0 44px; border: 1px solid #3a3326; border-radius: 5px; background: radial-gradient(ellipse at top right, #59451a21, transparent 65%), #1a1915; color: #c8a863; }
 .public-harmony h2 { color: #ead8b5; font: 400 23px/1.4 Georgia, serif; margin-bottom: 6px; }
 .public-harmony p { margin: 0; color: #b4a68b; font-size: 12px; }
@@ -276,6 +283,8 @@
   .public-location strong { font-size: 11px; }
   .public-location span { margin: 0; font-size: 10px; }
   .public-map-toolbar, .public-calendar-toolbar { padding: 10px; gap: 9px; margin-bottom: 23px; }
+  .public-date-filter { padding: 10px; gap: 9px; margin-bottom: 16px; }
+  .public-date-filter label { flex: 1 1 100%; }
   .public-search { flex-basis: 100%; }
   .public-date-field { flex: 1 1 100%; }
   .public-filter-group { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
