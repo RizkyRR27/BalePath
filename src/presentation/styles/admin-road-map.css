@@ -1,0 +1,172 @@
+.admin-road-map {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  width: 100%;
+}
+
+.admin-road-status {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.admin-road-status-button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ece5d8;
+  background: #121110;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.admin-road-status-button.active {
+  background: #24211c;
+  border-width: 2px;
+}
+
+.admin-road-status-dot {
+  width: 22px;
+  height: 0;
+  flex: none;
+  border-top: 4px solid currentColor;
+}
+
+.admin-road-map-frame {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #39392f;
+  border-radius: 8px;
+  background: #151714;
+}
+
+.admin-road-map-leaflet {
+  width: 100%;
+  height: clamp(320px, 42vw, 480px);
+  z-index: 0;
+  touch-action: pan-x pan-y;
+}
+
+.admin-road-loading {
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  background: #151714;
+  border: 1px solid #39392f;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.admin-road-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #cec6b5;
+  background: #1b1d18;
+  border-top: 1px solid #36382f;
+}
+
+.admin-road-error {
+  margin: 0;
+  font-size: 12px;
+  color: #f2b8b0;
+}
+
+.admin-road-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-road-actions .button {
+  flex: 1 1 200px;
+}
+
+.admin-road-list {
+  border-top: 1px solid #2c2925;
+  padding-top: 12px;
+}
+
+.admin-road-list ul {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-road-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #121110;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.admin-road-badge {
+  flex: none;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.admin-road-item-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-road-item-text strong {
+  font-size: 13px;
+}
+
+.admin-road-item-text small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (max-width: 1024px) {
+  .admin-road-status {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-road-map-leaflet {
+    height: 340px;
+  }
+
+  .admin-road-status-button {
+    min-height: 52px;
+    font-size: 10px;
+  }
+
+  .admin-road-actions .button {
+    flex: 1 1 100%;
+  }
+}

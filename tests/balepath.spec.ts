@@ -144,7 +144,7 @@ test("admin workspace uses two columns on tablet", async ({ page }) => {
 });
 
 test("legacy locale-less urls redirect to /id", async ({ page }) => {
-  for (const [from, to] of [["/", "/id"], ["/kalender", "/id/kalender"], ["/tri-hita-karana", "/id/tri-hita-karana"], ["/admin/login", "/id/admin/login"], ["/admin", "/id/admin"]] as const) {
+  for (const [from, to] of [["/", "/id"], ["/kalender", "/id/kalender"], ["/tri-hita-karana", "/id/tri-hita-karana"], ["/admin/login", "/id/admin/login"], ["/admin", "/id/admin/login"]] as const) {
     await page.goto(from);
     await expect(page).toHaveURL(new RegExp(`${to.replace(/\//g, "\\/")}$`));
   }
@@ -154,9 +154,11 @@ test("language switcher swaps locale segment", async ({ page }) => {
   await page.goto("/id/kalender");
   await expect(page.locator("html")).toHaveAttribute("lang", "id");
   await page.locator(".public-lang").click();
+  await page.getByRole("menuitem", { name: "English" }).click();
   await expect(page).toHaveURL(/\/en\/kalender$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await page.locator(".public-lang").click();
+  await page.getByRole("menuitem", { name: "Bahasa Indonesia" }).click();
   await expect(page).toHaveURL(/\/id\/kalender$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "id");
 });

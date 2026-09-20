@@ -1,0 +1,130 @@
+.public-interactive {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  width: 100%;
+}
+
+.public-interactive-lead {
+  margin: 0;
+  color: #c3b8a5;
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 70ch;
+}
+
+.public-interactive-map {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--public-line, #39392f);
+  border-radius: 8px;
+  background: #151714;
+}
+
+.public-interactive-leaflet {
+  width: 100%;
+  height: clamp(340px, 55vw, 520px);
+  z-index: 0;
+  touch-action: pan-x pan-y;
+}
+
+.public-interactive-loading {
+  width: 100%;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted, #b9afa0);
+  background: #151714;
+  border: 1px solid #39392f;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.public-interactive-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #c3b8a5;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.public-interactive-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.public-interactive-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+}
+
+.public-interactive-detail h3 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.public-interactive-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.public-interactive-segments {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.public-interactive-segments li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #d1ccbd;
+}
+
+.public-interactive-segments i {
+  width: 26px;
+  height: 0;
+  flex: none;
+}
+
+.public-map-popup strong {
+  font-size: 13px;
+}
+
+.public-map-popup span {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.public-map-popup .admin-road-badge {
+  display: inline-block;
+  margin-top: 6px;
+}
+
+@media (max-width: 480px) {
+  .public-interactive-leaflet {
+    height: 360px;
+  }
+
+  .public-interactive-detail {
+    padding: 14px 12px;
+  }
+
+  .public-interactive-list .public-action {
+    flex: 1 1 100%;
+  }
+}

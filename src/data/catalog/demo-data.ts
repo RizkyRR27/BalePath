@@ -1,8 +1,6 @@
 import type { Admin } from "@/domain/entities/admin";
 import type { CeremonyEvent, Closure } from "@/domain/entities/ceremony-event";
-import type { Road } from "@/domain/entities/road";
-
-export type { CeremonyEvent, Closure, Road };
+export type { CeremonyEvent, Closure };
 
 /** Static demo dataset (seed data). No business rules or formatting live here. */
 
@@ -15,13 +13,6 @@ export const dummyAdmin: Admin = {
   banjarId: "ubud-kaja",
   banjar: "Banjar Ubud Kaja",
 };
-
-export const roads: Road[] = [
-  { id: "raya-ubud", name: "Jl. Raya Ubud", coordinates: [[-8.5069, 115.257], [-8.5068, 115.262], [-8.5067, 115.267]] },
-  { id: "suweta", name: "Jl. Suweta", coordinates: [[-8.501, 115.262], [-8.504, 115.262], [-8.5068, 115.262]] },
-  { id: "bisma", name: "Jl. Bisma", coordinates: [[-8.5069, 115.257], [-8.51, 115.2575], [-8.514, 115.259]] },
-  { id: "hanoman", name: "Jl. Hanoman", coordinates: [[-8.5067, 115.267], [-8.51, 115.2675], [-8.514, 115.268]] },
-];
 
 export const initialEvents: CeremonyEvent[] = [
   { id: "YDN-001", name: "Pitra Yadnya · Ngaben Ageng", banjarId: "ubud-kaja", banjar: "Banjar Ubud Kaja", date: DEMO_DATE, startTime: "11:00", endTime: "16:30", closure: "Tutup Total", roadId: "raya-ubud", published: true, meaning: "Ngaben adalah upacara penghormatan kepada yang telah berpulang, mengembalikan unsur tubuh kepada alam. Hormati prosesi dan ikuti arahan pecalang." },

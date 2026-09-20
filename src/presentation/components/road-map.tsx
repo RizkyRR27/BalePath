@@ -2,28 +2,28 @@
 
 import { useId, useState } from "react";
 import { Compass, Layers, Minus, Plus, RotateCcw } from "lucide-react";
-import { roads } from "@/data/catalog/demo-data";
 import type { CeremonyEvent } from "@/domain/entities/ceremony-event";
+import { useRoads } from "@/presentation/providers/roads-provider";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
 import "@/presentation/styles/road-map.css";
 
 export type RoadMapProps = { events: CeremonyEvent[]; selectedRoadId?: string; onSelectRoad?: (id: string) => void };
-const coordinates = roads.flatMap((road) => road.coordinates);
-const latitudes = coordinates.map((point) => point[0]);
-const longitudes = coordinates.map((point) => point[1]);
-const minLat = Math.min(...latitudes);
-const maxLat = Math.max(...latitudes);
-const minLng = Math.min(...longitudes);
-const maxLng = Math.max(...longitudes);
-const scale = Math.min(640 / Math.max(maxLng - minLng, 0.001), 400 / Math.max(maxLat - minLat, 0.001));
-function project([lat, lng]: [number, number]) { return [450 + (lng - (minLng + maxLng) / 2) * scale, 310 - (lat - (minLat + maxLat) / 2) * scale]; }
-
 export function RoadMap({ events, selectedRoadId, onSelectRoad }: RoadMapProps) {
+  const { roads } = useRoads();
   const { t } = useTranslation();
   const [zoom, setZoom] = useState(1);
   const [localRoadId, setLocalRoadId] = useState<string>();
   const id = useId().replace(/:/g, "");
   const selected = selectedRoadId ?? localRoadId;
+  const coordinates = roads.flatMap((road) => road.coordinates);
+  const latitudes = coordinates.map((point) => point[0]);
+  const longitudes = coordinates.map((point) => point[1]);
+  const minLat = latitudes.length ? Math.min(...latitudes) : 0;
+  const maxLat = latitudes.length ? Math.max(...latitudes) : 0;
+  const minLng = longitudes.length ? Math.min(...longitudes) : 0;
+  const maxLng = longitudes.length ? Math.max(...longitudes) : 0;
+  const scale = Math.min(640 / Math.max(maxLng - minLng, 0.001), 400 / Math.max(maxLat - minLat, 0.001));
+  function project([lat, lng]: [number, number]) { return [450 + (lng - (minLng + maxLng) / 2) * scale, 310 - (lat - (minLat + maxLat) / 2) * scale]; }
   const mapped = roads.map((road) => { const points = road.coordinates.map(project); const related = events.filter((event) => event.roadId === road.id); const full = related.some((event) => event.closure === "Tutup Total"); return { ...road, points, path: points.map((point, index) => `${index ? "L" : "M"}${point[0]},${point[1]}`).join(" "), color: full ? "#ec7966" : related.length ? "#f3c35c" : "#89877b", status: full ? "Tutup Total" : related.length ? "Buka-Tutup" : "Tidak ada jadwal pada filter ini", related }; });
   const focused = mapped.find((road) => road.id === selected);
   const center = focused?.points[Math.floor(focused.points.length / 2)] ?? [450, 310];

@@ -1,27 +1,32 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { initialEvents } from "@/data/catalog/demo-data";
 import type { CeremonyEvent } from "@/domain/entities/ceremony-event";
 import { createEventRepository } from "@/infrastructure/storage/session-storage";
 import { isValidEvent, isValidEventList } from "@/application/use-cases/event-validation";
 import { useAuth } from "./auth-provider";
+import { useRoads } from "./roads-provider";
 
 type EventsState = { events: CeremonyEvent[]; ready: boolean; saveEvent: (event: CeremonyEvent) => boolean; togglePublished: (id: string) => void; deleteEvent: (id: string) => void };
 const EventsContext = createContext<EventsState | null>(null);
-const repository = createEventRepository(initialEvents, isValidEventList);
 
 export function EventsProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
+  const { roads, ready: roadsReady } = useRoads();
   const [events, setEvents] = useState<CeremonyEvent[]>(initialEvents);
   const [ready, setReady] = useState(false);
+  // Recreated (cheaply — no internal state) whenever roads changes, so stored events are
+  // (re)validated against the current road catalog instead of a stale static import.
+  const repository = useMemo(() => createEventRepository(initialEvents, (value): value is CeremonyEvent[] => isValidEventList(value, roads)), [roads]);
   useEffect(() => {
+    if (!roadsReady) return;
     const timer = setTimeout(() => { setEvents(repository.load()); setReady(true); }, 0);
     return () => clearTimeout(timer);
-  }, []);
-  useEffect(() => { if (ready) repository.save(events); }, [events, ready]);
+  }, [roadsReady, repository]);
+  useEffect(() => { if (ready) repository.save(events); }, [events, ready, repository]);
   function saveEvent(event: CeremonyEvent) {
-    if (!user || event.banjarId !== user.banjarId || !isValidEvent(event) || !event.name.trim()) return false;
+    if (!user || event.banjarId !== user.banjarId || !isValidEvent(event, roads) || !event.name.trim()) return false;
     if (events.some((item) => item.id === event.id && item.banjarId !== user.banjarId)) return false;
     setEvents((current) => current.some((item) => item.id === event.id) ? current.map((item) => item.id === event.id ? event : item) : [...current, event]);
     return true;

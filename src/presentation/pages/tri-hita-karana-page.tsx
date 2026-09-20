@@ -4,14 +4,11 @@ import Image from "next/image";
 import { useState } from "react";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
 import { localePath } from "@/presentation/i18n/locale";
+import { useImpactData } from "@/presentation/providers/impact-data-provider";
+import { useBanjarProfile } from "@/presentation/providers/banjar-profile-provider";
+import { useEmergencyContacts } from "@/presentation/providers/emergency-contact-provider";
 import { BadgeCheck, Calculator, Flower2, Handshake, Info, Leaf, Phone, ShieldCheck, Sprout, Sun, TimerOff, Users } from "lucide-react";
 import "@/presentation/styles/impact.css";
-
-const vehicles = [
-  { id: "motor", label: "Sepeda Motor", rate: 0.08 },
-  { id: "mobil_kecil", label: "Mobil LCGC", rate: 0.19 },
-  { id: "suv_van", label: "Van / SUV", rate: 0.28 },
-];
 
 const pillarMeta = [
   { icon: Flower2, detailIcon: BadgeCheck, tone: "gold" },
@@ -29,11 +26,17 @@ const ceremonyMeta = [
 export default function TriHitaKaranaPage() {
   const { t, locale } = useTranslation();
   const impact = t.impact;
+  const { vehicles, impactStat } = useImpactData();
+  const { profile } = useBanjarProfile();
+  const { contacts } = useEmergencyContacts();
   const [vehicleId, setVehicleId] = useState("motor");
   const [frequency, setFrequency] = useState(8);
   const vehicle = vehicles.find((item) => item.id === vehicleId) ?? vehicles[0];
-  const fuel = vehicle.rate * 3.8 * frequency;
-  const co2 = fuel * 2.3;
+  const fuel = vehicle.fuelRatePerKm * impactStat.avoidedDistanceKm * frequency;
+  const co2 = fuel * impactStat.co2KgPerLiter;
+  // Public page has no session — show the demo banjar's data, matching existing copy.
+  const publicContact = contacts.find((contact) => contact.banjarId === "ubud-kaja") ?? null;
+  const contactVerified = publicContact?.verified === true && !!publicContact.phone.trim();
 
   return (
     <div className="impact-page">
@@ -66,18 +69,18 @@ export default function TriHitaKaranaPage() {
 
       <section className="impact-section impact-dark" aria-labelledby="impact-metrics-title">
         <div className="impact-container">
-          <div className="impact-section-heading impact-heading-split"><div><p className="impact-eyebrow">{impact.metricEyebrow}</p><h2 id="impact-metrics-title">{impact.metricTitle}</h2></div><p>{impact.metricNote}</p></div>
+          <div className="impact-section-heading impact-heading-split"><div><p className="impact-eyebrow">{impact.metricEyebrow}</p><h2 id="impact-metrics-title">{impact.metricTitle}</h2></div><p>{impact.metricNote.replace("{banjar}", profile?.name ?? "")}</p></div>
           <div className="impact-metrics">
             <article className="impact-metric impact-tone-green">
-              <div className="impact-metric-top"><div><h3>{impact.emissionTitle}</h3><strong className="impact-metric-value">1,420</strong><p>{impact.emissionUnit}</p></div><span className="impact-icon"><Leaf size={24} aria-hidden="true" /></span></div>
+              <div className="impact-metric-top"><div><h3>{impact.emissionTitle}</h3><strong className="impact-metric-value">{impactStat.emissionKg.toLocaleString(locale === "en" ? "en-US" : "id-ID")}</strong><p>{impact.emissionUnit}</p></div><span className="impact-icon"><Leaf size={24} aria-hidden="true" /></span></div>
               <div className="impact-metric-bottom"><svg className="impact-sparkline" viewBox="0 0 280 40" fill="none" aria-hidden="true"><path d="M0 35 L35 32 L70 28 L105 30 L140 20 L175 22 L210 12 L245 15 L280 4 L280 40 L0 40 Z" fill="currentColor" fillOpacity=".12" /><path d="M0 35 L35 32 L70 28 L105 30 L140 20 L175 22 L210 12 L245 15 L280 4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg><p><span className="impact-accent">↑ 18.2%</span> {impact.trend}</p></div>
             </article>
             <article className="impact-metric impact-tone-gold">
-              <div className="impact-metric-top"><div><h3>{impact.idlingTitle}</h3><strong className="impact-metric-value">28.4%</strong><p>{impact.idlingUnit}</p></div><span className="impact-icon"><TimerOff size={24} aria-hidden="true" /></span></div>
-              <div className="impact-metric-bottom"><progress className="impact-progress" value={28.4} max={30} aria-label={impact.idleAria} /><div className="impact-progress-labels"><span>{impact.min}</span><span className="impact-accent">{impact.simulation}</span><span>{impact.target}</span></div></div>
+              <div className="impact-metric-top"><div><h3>{impact.idlingTitle}</h3><strong className="impact-metric-value">{impactStat.idlingPercent}%</strong><p>{impact.idlingUnit.replace("{min}", String(impactStat.idlingMinPercent)).replace("{target}", String(impactStat.idlingTargetPercent))}</p></div><span className="impact-icon"><TimerOff size={24} aria-hidden="true" /></span></div>
+              <div className="impact-metric-bottom"><progress className="impact-progress" value={impactStat.idlingPercent} max={impactStat.idlingTargetPercent} aria-label={impact.idleAria.replace("{value}", String(impactStat.idlingPercent)).replace("{target}", String(impactStat.idlingTargetPercent))} /><div className="impact-progress-labels"><span>{impact.min.replace("{value}", String(impactStat.idlingMinPercent))}</span><span className="impact-accent">{impact.simulation.replace("{value}", String(impactStat.idlingPercent))}</span><span>{impact.target.replace("{value}", String(impactStat.idlingTargetPercent))}</span></div></div>
             </article>
             <article className="impact-metric impact-tone-gold">
-              <div className="impact-metric-top"><div><h3>{impact.harmonyTitle}</h3><strong className="impact-metric-value">34</strong><p>{impact.harmonyUnit}</p></div><span className="impact-icon"><Sun size={24} aria-hidden="true" /></span></div>
+              <div className="impact-metric-top"><div><h3>{impact.harmonyTitle}</h3><strong className="impact-metric-value">{impactStat.ceremonyCount}</strong><p>{impact.harmonyUnit}</p></div><span className="impact-icon"><Sun size={24} aria-hidden="true" /></span></div>
               <div className="impact-metric-bottom impact-ceremony-count"><div className="impact-tokens" aria-hidden="true"><span>OG</span><span>ML</span><span>NG</span></div><p>{impact.harmonyNote}</p><span className="impact-example">{impact.sample}</span></div>
             </article>
           </div>
@@ -97,7 +100,7 @@ export default function TriHitaKaranaPage() {
                 <div><label htmlFor="calc-co2">{impact.co2Label}</label><output id="calc-co2" htmlFor="detour-range">{co2.toFixed(1)} kg</output><span>{impact.perMonth}</span></div>
               </div>
               <div className="impact-result-note"><Sprout size={24} aria-hidden="true" /><p>{impact.resultNote}</p></div>
-              <p id="impact-assumptions" className="impact-assumptions">{impact.assumptions}</p>
+              <p id="impact-assumptions" className="impact-assumptions">{impact.assumptions.replace("{distance}", String(impactStat.avoidedDistanceKm)).replace("{rates}", vehicles.map((item) => `${item.label} ${item.fuelRatePerKm}`).join(", ")).replace("{co2Rate}", String(impactStat.co2KgPerLiter))}</p>
             </div>
           </div>
         </div>
@@ -120,9 +123,9 @@ export default function TriHitaKaranaPage() {
 
       <section className="impact-section impact-dark impact-contact" id="kontak-darurat" aria-labelledby="impact-contact-title" tabIndex={-1}>
         <div className="impact-container">
-          <div className="impact-section-heading impact-contact-heading"><p className="impact-eyebrow">{impact.contactEyebrow}</p><h2 id="impact-contact-title">{impact.contactTitle}</h2><p>{impact.contactText}</p></div>
+          <div className="impact-section-heading impact-contact-heading"><p className="impact-eyebrow">{impact.contactEyebrow}</p><h2 id="impact-contact-title">{impact.contactTitle.replace("{banjar}", profile?.name ?? "")}</h2><p>{impact.contactText}</p></div>
           <div className="impact-contacts">
-            <article className="impact-contact-card"><div className="impact-contact-card-heading"><span className="impact-icon"><ShieldCheck size={30} aria-hidden="true" /></span><div><p className="impact-eyebrow">{impact.post}</p><h3>{impact.postTitle}</h3><p>{impact.confirmContact}</p></div><span className="impact-contact-status">{impact.unverified}</span></div><p>{impact.contactStatus}</p><div className="impact-contact-actions"><span className="impact-contact-placeholder"><Phone size={16} aria-hidden="true" />{impact.noNumber}</span><span className="impact-unavailable">{impact.noWhatsapp}</span><a className="impact-emergency-call" href="tel:119">{impact.emergencyCall}</a><a className="impact-contact-map-link" href={localePath("/", locale)}>{impact.viewMap}</a></div></article>
+            <article className="impact-contact-card"><div className="impact-contact-card-heading"><span className="impact-icon"><ShieldCheck size={30} aria-hidden="true" /></span><div><p className="impact-eyebrow">{impact.post}</p><h3>{impact.postTitle}</h3><p>{impact.confirmContact}</p></div><span className="impact-contact-status">{contactVerified ? profile?.name ?? impact.postTitle : impact.unverified}</span></div><p>{profile?.description ?? impact.contactStatus}</p><div className="impact-contact-actions">{contactVerified ? <a className="impact-contact-phone" href={`tel:${publicContact.phone}`}><Phone size={16} aria-hidden="true" />{publicContact.phone}</a> : <span className="impact-contact-placeholder"><Phone size={16} aria-hidden="true" />{impact.noNumber}</span>}<span className="impact-unavailable">{publicContact?.whatsapp && contactVerified ? publicContact.whatsapp : impact.noWhatsapp}</span><a className="impact-emergency-call" href="tel:119">{impact.emergencyCall}</a><a className="impact-contact-map-link" href={localePath("/", locale)}>{impact.viewMap}</a></div></article>
 
           </div>
         </div>
