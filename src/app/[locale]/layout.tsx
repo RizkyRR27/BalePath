@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
+import "leaflet/dist/leaflet.css";
 import { AuthProvider } from "@/presentation/providers/auth-provider";
 import { BanjarEventsProvider } from "@/presentation/providers/banjar-events-provider";
 import { EventsProvider } from "@/presentation/providers/events-provider";
@@ -26,5 +27,5 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
   const { locale: value } = await params;
   if (!isLocale(value)) notFound();
   const locale: Locale = value;
-  return <html lang={locale} suppressHydrationWarning><body suppressHydrationWarning><TranslationProvider locale={locale} t={getDictionary(locale)}><AuthProvider><RoadsProvider><EventsProvider><BanjarProfileProvider><EmergencyContactProvider><ImpactDataProvider>{children}</ImpactDataProvider></EmergencyContactProvider></BanjarProfileProvider></EventsProvider></RoadsProvider></AuthProvider></TranslationProvider></body></html>;
+  return <html lang={locale} suppressHydrationWarning><body suppressHydrationWarning><TranslationProvider locale={locale} t={getDictionary(locale)}><AuthProvider><RoadsProvider><EventsProvider><BanjarEventsProvider><BanjarProfileProvider><EmergencyContactProvider><ImpactDataProvider>{children}</ImpactDataProvider></EmergencyContactProvider></BanjarProfileProvider></BanjarEventsProvider></EventsProvider></RoadsProvider></AuthProvider></TranslationProvider></body></html>;
 }

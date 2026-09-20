@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { CalendarDays, Check, ChevronRight, Clock3, FilePenLine, MapPin, Plus, Save, ShieldCheck, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, FilePenLine, MapPin, Plus, Save, Search, ShieldCheck, Trash2, X } from "lucide-react";
 import { useAuth } from "@/presentation/providers/auth-provider";
 import { useBanjarEvents } from "@/presentation/providers/banjar-events-provider";
 import { DEMO_DATE } from "@/data/catalog/demo-data";
@@ -29,7 +29,27 @@ export default function DashboardPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 10;
   const titleInput = useRef<HTMLInputElement>(null);
+
+  const filteredEvents = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return events;
+    return events.filter((event) => {
+      const matchTitle = event.title.toLowerCase().includes(q);
+      const matchBanjar = event.banjarName.toLowerCase().includes(q);
+      const matchDesc = event.description?.toLowerCase().includes(q) ?? false;
+      const matchDate = `${event.startDate} ${event.endDate}`.toLowerCase().includes(q);
+      return matchTitle || matchBanjar || matchDesc || matchDate;
+    });
+  }, [events, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredEvents.length / PAGE_SIZE));
+  const validPage = Math.min(Math.max(1, currentPage), totalPages);
+  const startIndex = (validPage - 1) * PAGE_SIZE;
+  const paginatedEvents = filteredEvents.slice(startIndex, startIndex + PAGE_SIZE);
 
   useEffect(() => {
     if (!user || banjarTouched || banjarName !== "") return;
@@ -177,6 +197,37 @@ export default function DashboardPage() {
         <div><p className="eyebrow">{d.coordination}</p><h2>{d.listTitle}</h2><p className="muted small">{d.listSub}</p></div>
       </div>
       {message && <p className="success-message" role="status"><Check size={18} />{message}</p>}
+
+      {events.length > 0 && (
+        <div className="admin-search-bar">
+          <Search size={18} className="search-icon" aria-hidden="true" />
+          <input
+            type="text"
+            role="searchbox"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
+            placeholder={d.searchPlaceholder}
+            aria-label={d.searchLabel}
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              className="clear-search"
+              onClick={() => {
+                setSearchQuery("");
+                setCurrentPage(1);
+              }}
+              aria-label={d.resetSearch}
+            >
+              <X size={16} />
+            </button>
+          )}
+        </div>
+      )}
+
       <div className="managed-list">
         {events.length === 0 ? (
           <div className="panel empty-state">
@@ -184,38 +235,96 @@ export default function DashboardPage() {
             <h3>{d.emptyEvents}</h3>
             <button className="button secondary" onClick={() => titleInput.current?.focus()}><Plus size={16} /> {d.create}</button>
           </div>
-        ) : events.map((event) => (
-          <article className="managed-event" key={event.id}>
-            <div>
-              <span className="muted small"><MapPin size={14} />{event.banjarName} · {event.roadSegments.length} {d.segUnit}</span>
-              <h3>{event.title}</h3>
-              <p className="muted small">
-                {event.roadSegments.map((segment) => (
-                  <span key={segment.id} className="admin-road-badge" style={{ backgroundColor: SEGMENT_META[segment.status].color }}>
-                    {SEGMENT_META[segment.status].label}
-                  </span>
-                ))}
-              </p>
-            </div>
-            <div className="event-schedule">
-              <strong>{dateRange(event)}</strong>
-              <span><Clock3 size={14} /> {event.startTime} – {event.endTime} WITA</span>
-            </div>
-            <div className="event-actions">
-              <div className="row">
-                <button className="icon-button danger" aria-label={`${d.delete} ${event.title}`} onClick={() => setDeleting(event.id)}><Trash2 size={16} /></button>
+        ) : paginatedEvents.length === 0 ? (
+          <div className="panel empty-state">
+            <Search size={32} />
+            <h3>{d.noSearchResults}</h3>
+            <button
+              type="button"
+              className="button secondary"
+              onClick={() => {
+                setSearchQuery("");
+                setCurrentPage(1);
+              }}
+            >
+              <X size={16} /> {d.resetSearch}
+            </button>
+          </div>
+        ) : (
+          paginatedEvents.map((event) => (
+            <article className="managed-event" key={event.id}>
+              <div>
+                <span className="muted small"><MapPin size={14} />{event.banjarName} · {event.roadSegments.length} {d.segUnit}</span>
+                <h3>{event.title}</h3>
+                <p className="muted small">
+                  {event.roadSegments.map((segment) => (
+                    <span key={segment.id} className="admin-road-badge" style={{ backgroundColor: SEGMENT_META[segment.status].color }}>
+                      {SEGMENT_META[segment.status].label}
+                    </span>
+                  ))}
+                </p>
               </div>
-              {deleting === event.id && (
-                <div className="delete-confirm" role="group" aria-label={d.deleteConfirm}>
-                  <p>{d.deleteQuestion}</p>
-                  <button className="button secondary" onClick={() => setDeleting(null)}>{d.cancel}</button>
-                  <button className="button danger" onClick={() => { removeBanjarEvent(event.id); setDeleting(null); setMessage(d.deletedSuccess); }}>{d.confirmDelete}</button>
+              <div className="event-schedule">
+                <strong>{dateRange(event)}</strong>
+                <span><Clock3 size={14} /> {event.startTime} – {event.endTime} WITA</span>
+              </div>
+              <div className="event-actions">
+                <div className="row">
+                  <button className="icon-button danger" aria-label={`${d.delete} ${event.title}`} onClick={() => setDeleting(event.id)}><Trash2 size={16} /></button>
                 </div>
-              )}
-            </div>
-          </article>
-        ))}
+                {deleting === event.id && (
+                  <div className="delete-confirm" role="group" aria-label={d.deleteConfirm}>
+                    <p>{d.deleteQuestion}</p>
+                    <button className="button secondary" onClick={() => setDeleting(null)}>{d.cancel}</button>
+                    <button className="button danger" onClick={() => { removeBanjarEvent(event.id); setDeleting(null); setMessage(d.deletedSuccess); }}>{d.confirmDelete}</button>
+                  </div>
+                )}
+              </div>
+            </article>
+          ))
+        )}
       </div>
+
+      {totalPages > 1 && (
+        <nav className="admin-pagination" aria-label={d.paginationAria}>
+          <span className="pagination-info">
+            {d.showingCount
+              .replace("{start}", String(startIndex + 1))
+              .replace("{end}", String(Math.min(startIndex + PAGE_SIZE, filteredEvents.length)))
+              .replace("{total}", String(filteredEvents.length))}
+          </span>
+          <div className="pagination-buttons">
+            <button
+              type="button"
+              className="button secondary pagination-nav"
+              disabled={validPage <= 1}
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            >
+              <ChevronLeft size={16} /> {d.prevPage}
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+              <button
+                key={pageNum}
+                type="button"
+                className={`pagination-number ${pageNum === validPage ? "active" : ""}`}
+                onClick={() => setCurrentPage(pageNum)}
+                aria-current={pageNum === validPage ? "page" : undefined}
+                aria-label={`Halaman ${pageNum}`}
+              >
+                {pageNum}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="button secondary pagination-nav"
+              disabled={validPage >= totalPages}
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            >
+              {d.nextPage} <ChevronRight size={16} />
+            </button>
+          </div>
+        </nav>
+      )}
     </section>
   </>;
 }

@@ -5,10 +5,11 @@ import { useMemo, useState } from "react";
 import { ArrowRight, CalendarDays, Clock3, Flower2, Info, MapPin, Search, SlidersHorizontal, X } from "lucide-react";
 import { useBanjarEvents } from "@/presentation/providers/banjar-events-provider";
 import type { BanjarEvent } from "@/domain/entities/banjar-event";
+import { DEMO_DATE } from "@/data/catalog/demo-data";
 import { SEGMENT_META, type RoadSegmentStatus } from "@/domain/entities/road-segment";
 import { formatDate } from "@/domain/formatters/format-date";
 import { PublicRoadMap } from "@/presentation/components/public-road-map";
-import { coversDate, todayIso } from "@/presentation/components/public-event-map-section";
+import { coversDate } from "@/presentation/components/public-event-map-section";
 import { localePath } from "@/presentation/i18n/locale";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
 
@@ -36,16 +37,15 @@ export default function PublicMapPage() {
   const { events, ready } = useBanjarEvents();
   const { locale, t } = useTranslation();
   const [query, setQuery] = useState("");
-  const [date, setDate] = useState<string>(() => todayIso());
+  const [date, setDate] = useState<string>(DEMO_DATE);
   const [status, setStatus] = useState<StatusFilter>("all");
   const [selectedId, setSelectedId] = useState<string>();
 
-  // Peta HANYA merender ruas yang jadwalnya mencakup tanggal pilihan:
-  // selectedDate >= startDate && selectedDate <= endDate.
+  // Peta merender ruas yang jadwalnya mencakup tanggal pilihan (atau semua jika tanggal dikosongkan):
   const filtered = useMemo(
     () =>
       events
-        .filter((event) => coversDate(event, date))
+        .filter((event) => !date || coversDate(event, date))
         .filter((event) => status === "all" || event.roadSegments.some((segment) => segment.status === status))
         .filter((event) => matchesQuery(event, query, locale))
         .sort((a, b) => `${a.startDate}${a.startTime}`.localeCompare(`${b.startDate}${b.startTime}`)),
@@ -60,7 +60,7 @@ export default function PublicMapPage() {
 
   function resetFilters() {
     setQuery("");
-    setDate(todayIso());
+    setDate(DEMO_DATE);
     setStatus("all");
     setSelectedId(undefined);
   }
