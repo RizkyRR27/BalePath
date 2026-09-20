@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { AuthProvider } from "@/presentation/providers/auth-provider";
+import { BanjarEventsProvider } from "@/presentation/providers/banjar-events-provider";
 import { EventsProvider } from "@/presentation/providers/events-provider";
 import { RoadsProvider } from "@/presentation/providers/roads-provider";
 import { BanjarProfileProvider } from "@/presentation/providers/banjar-profile-provider";
