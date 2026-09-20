@@ -7,6 +7,8 @@ import type { RoadSegment } from "./road-segment";
  */
 export interface BanjarEvent {
   id: string;
+  /** Kunci relasi ke banjar pemilik — distempel otomatis dari akun admin saat menyimpan. */
+  banjarId: string;
   title: string;
   banjarName: string;
   startDate: string; // YYYY-MM-DD

@@ -7,4 +7,11 @@ export const initialEmergencyContacts: EmergencyContact[] = [{
   phone: "",
   whatsapp: "",
   verified: false,
+}, {
+  id: "posko-padangtegal",
+  banjarId: "padangtegal",
+  postName: "Posko Banjar Padangtegal",
+  phone: "",
+  whatsapp: "",
+  verified: false,
 }];

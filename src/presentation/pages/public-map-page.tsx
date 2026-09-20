@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useMemo, useState } from "react";
 import { ArrowRight, CalendarDays, Clock3, Flower2, Info, MapPin, Search, SlidersHorizontal, X } from "lucide-react";
 import { useBanjarEvents } from "@/presentation/providers/banjar-events-provider";
 import type { BanjarEvent } from "@/domain/entities/banjar-event";
@@ -31,15 +32,21 @@ function dateRangeLabel(event: BanjarEvent, locale: "id" | "en"): string {
     : `${formatDate(event.startDate, locale)} – ${formatDate(event.endDate, locale)}`;
 }
 
-export default function PublicMapPage() {
+function validDateParam(value: string | null): string {
+  return value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : DEMO_DATE;
+}
+
+function PublicMapContent() {
   // Sumber tunggal kebenaran: shared store admin <-> publik (localStorage).
   // Tidak ada lagi koordinat dummy / CeremonyEvent statis di halaman ini.
   const { events, ready } = useBanjarEvents();
   const { locale, t } = useTranslation();
+  const params = useSearchParams();
   const [query, setQuery] = useState("");
-  const [date, setDate] = useState<string>(DEMO_DATE);
+  // Mendukung deep-link dari dashboard admin: ?date=YYYY-MM-DD&event=id
+  const [date, setDate] = useState<string>(() => validDateParam(params.get("date")));
   const [status, setStatus] = useState<StatusFilter>("all");
-  const [selectedId, setSelectedId] = useState<string>();
+  const [selectedId, setSelectedId] = useState<string | undefined>(() => params.get("event") ?? undefined);
 
   // Peta merender ruas yang jadwalnya mencakup tanggal pilihan (atau semua jika tanggal dikosongkan):
   const filtered = useMemo(
@@ -125,4 +132,8 @@ export default function PublicMapPage() {
 
     <section className="public-harmony"><Flower2 size={30} strokeWidth={1} aria-hidden="true" /><div><h2>{t.map.harmonyTitle}</h2><p>{t.map.harmonyText}</p></div><span className="public-small-label">{t.map.harmonyLabel}</span></section>
   </div>;
+}
+
+export default function PublicMapPage() {
+  return <Suspense fallback={<div className="public-container public-empty" role="status">Memuat peta…</div>}><PublicMapContent /></Suspense>;
 }

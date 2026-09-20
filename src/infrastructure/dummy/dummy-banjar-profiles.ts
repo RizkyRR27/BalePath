@@ -7,4 +7,11 @@ export const initialBanjarProfiles: BanjarProfile[] = [{
   description: "Ruang bersama untuk menjaga tradisi, lingkungan, dan mobilitas adat.",
   contactName: "I Wayan Wira Adnyana",
   contactPhone: "",
+}, {
+  banjarId: "padangtegal",
+  name: "Banjar Padangtegal",
+  location: "Ubud, Gianyar, Bali",
+  description: "Menata karya adat dan arus perjalanan warga dengan penuh harmoni.",
+  contactName: "Ni Made Sari Dewi",
+  contactPhone: "",
 }];

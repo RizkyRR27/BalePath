@@ -213,6 +213,7 @@ export const id = {
     saveContact: "Simpan kontak",
     noContacts: "Belum ada kontak.",
     invalid: "Periksa kembali isian.",
+    syncedNote: "Otomatis mengikuti akun login dan tidak dapat diubah.",
   },
   closure: {
     "Tutup Total": "Tutup Total",
@@ -314,6 +315,8 @@ export const id = {
     mapInteractiveSub: "PILIH STATUS · KLIK 2 TITIK DI PETA UBUD",
     segNone: "Belum ada segmen jalan dari peta interaktif.",
     segReady: "segmen jalan akan disimpan bersama kegiatan ini.",
+    syncedNote: "Otomatis mengikuti akun login dan tidak dapat diubah.",
+    viewPublic: "Lihat di peta publik",
     publishedSuccess: "Agenda berhasil dipublikasikan ke portal publik.",
     unpublishedSuccess: "Agenda ditarik dari portal publik.",
     deletedSuccess: "Agenda berhasil dihapus.",

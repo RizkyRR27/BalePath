@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
-import { CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, FilePenLine, MapPin, Plus, Save, Search, ShieldCheck, Trash2, X } from "lucide-react";
+import Link from "next/link";
+import { useMemo, useRef, useState, type FormEvent } from "react";
+import { CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, ExternalLink, FilePenLine, MapPin, Plus, Save, Search, ShieldCheck, Trash2, X } from "lucide-react";
 import { useAuth } from "@/presentation/providers/auth-provider";
 import { useBanjarEvents } from "@/presentation/providers/banjar-events-provider";
 import { DEMO_DATE } from "@/data/catalog/demo-data";
@@ -9,6 +10,7 @@ import type { BanjarEvent } from "@/domain/entities/banjar-event";
 import { SEGMENT_META, type RoadSegment } from "@/domain/entities/road-segment";
 import { formatDate } from "@/domain/formatters/format-date";
 import { AdminRoadPicker } from "@/presentation/components/admin-road-picker";
+import { localePath } from "@/presentation/i18n/locale";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
 
 export default function DashboardPage() {
@@ -18,8 +20,6 @@ export default function DashboardPage() {
   const d = t.dashboard;
 
   const [title, setTitle] = useState("");
-  const [banjarName, setBanjarName] = useState("");
-  const [banjarTouched, setBanjarTouched] = useState(false);
   const [startDate, setStartDate] = useState(DEMO_DATE);
   const [endDate, setEndDate] = useState(DEMO_DATE);
   const [startTime, setStartTime] = useState("10:00");
@@ -34,39 +34,37 @@ export default function DashboardPage() {
   const PAGE_SIZE = 10;
   const titleInput = useRef<HTMLInputElement>(null);
 
+  // Cakupan per banjar: admin hanya melihat & mengelola event banjarnya sendiri.
+  const ownEvents = useMemo(
+    () => events.filter((event) => event.banjarId === (user?.banjarId ?? "")),
+    [events, user?.banjarId],
+  );
+
   const filteredEvents = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-    if (!q) return events;
-    return events.filter((event) => {
+    if (!q) return ownEvents;
+    return ownEvents.filter((event) => {
       const matchTitle = event.title.toLowerCase().includes(q);
       const matchBanjar = event.banjarName.toLowerCase().includes(q);
       const matchDesc = event.description?.toLowerCase().includes(q) ?? false;
       const matchDate = `${event.startDate} ${event.endDate}`.toLowerCase().includes(q);
       return matchTitle || matchBanjar || matchDesc || matchDate;
     });
-  }, [events, searchQuery]);
+  }, [ownEvents, searchQuery]);
 
   const totalPages = Math.max(1, Math.ceil(filteredEvents.length / PAGE_SIZE));
   const validPage = Math.min(Math.max(1, currentPage), totalPages);
   const startIndex = (validPage - 1) * PAGE_SIZE;
   const paginatedEvents = filteredEvents.slice(startIndex, startIndex + PAGE_SIZE);
 
-  useEffect(() => {
-    if (!user || banjarTouched || banjarName !== "") return;
-    const timer = setTimeout(() => setBanjarName(user.banjar), 0);
-    return () => clearTimeout(timer);
-  }, [user, banjarTouched, banjarName]);
-
-  const totalSegments = events.reduce((sum, event) => sum + event.roadSegments.length, 0);
-  const fullClosed = events.reduce(
+  const totalSegments = ownEvents.reduce((sum, event) => sum + event.roadSegments.length, 0);
+  const fullClosed = ownEvents.reduce(
     (sum, event) => sum + event.roadSegments.filter((segment) => segment.status === "TUTUP_TOTAL").length,
     0,
   );
 
   function reset() {
     setTitle("");
-    setBanjarTouched(false);
-    setBanjarName(user?.banjar ?? "");
     setStartDate(DEMO_DATE);
     setEndDate(DEMO_DATE);
     setStartTime("10:00");
@@ -82,14 +80,14 @@ export default function DashboardPage() {
     setMessage("");
     if (!user) return;
     if (!title.trim()) { setError(d.invalidName); return; }
-    if (!banjarName.trim()) { setError(d.invalidBanjar); return; }
     if (!startDate || !endDate || endDate < startDate) { setError(d.invalidDateRange); return; }
     if (startDate === endDate && startTime >= endTime) { setError(d.invalidTime); return; }
     if (segments.length < 1) { setError(d.needSegment); return; }
     const payload: BanjarEvent = {
       id: crypto.randomUUID(),
+      banjarId: user.banjarId,
       title: title.trim(),
-      banjarName: banjarName.trim(),
+      banjarName: user.banjar,
       startDate,
       endDate,
       startTime,
@@ -132,7 +130,7 @@ export default function DashboardPage() {
     <section className="stats-grid" aria-label={d.summary}>
       <div className="stat-card">
         <span className="stat-icon"><CalendarDays size={22} /></span>
-        <div><span className="muted">{d.statsEvents}</span><strong>{events.length.toString().padStart(2, "0")}</strong></div>
+        <div><span className="muted">{d.statsEvents}</span><strong>{ownEvents.length.toString().padStart(2, "0")}</strong></div>
         <small>{d.statsEventsHelp}</small>
       </div>
       <div className="stat-card">
@@ -161,7 +159,8 @@ export default function DashboardPage() {
             <input ref={titleInput} required maxLength={120} value={title} onChange={(e) => setTitle(e.target.value)} placeholder={d.ceremonyPlaceholder} />
           </label>
           <label>{d.banjarName}
-            <input required maxLength={120} value={banjarName} onChange={(e) => { setBanjarName(e.target.value); setBanjarTouched(true); }} />
+            <input required readOnly value={user?.banjar ?? ""} aria-readonly="true" title={d.syncedNote} />
+            <span className="muted small">{d.syncedNote}</span>
           </label>
           <div className="form-grid">
             <label>{d.startDate}<input type="date" required value={startDate} onChange={(e) => setStartDate(e.target.value)} /></label>
@@ -198,7 +197,7 @@ export default function DashboardPage() {
       </div>
       {message && <p className="success-message" role="status"><Check size={18} />{message}</p>}
 
-      {events.length > 0 && (
+      {ownEvents.length > 0 && (
         <div className="admin-search-bar">
           <Search size={18} className="search-icon" aria-hidden="true" />
           <input
@@ -229,7 +228,7 @@ export default function DashboardPage() {
       )}
 
       <div className="managed-list">
-        {events.length === 0 ? (
+        {ownEvents.length === 0 ? (
           <div className="panel empty-state">
             <CalendarDays size={32} />
             <h3>{d.emptyEvents}</h3>
@@ -270,6 +269,7 @@ export default function DashboardPage() {
               </div>
               <div className="event-actions">
                 <div className="row">
+                  <Link className="button secondary" href={`${localePath("/", locale)}?date=${event.startDate}&event=${event.id}`}><ExternalLink size={15} />{d.viewPublic}</Link>
                   <button className="icon-button danger" aria-label={`${d.delete} ${event.title}`} onClick={() => setDeleting(event.id)}><Trash2 size={16} /></button>
                 </div>
                 {deleting === event.id && (
