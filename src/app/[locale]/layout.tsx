@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import { AuthProvider } from "@/presentation/providers/auth-provider";
 import { EventsProvider } from "@/presentation/providers/events-provider";
+import { RoadsProvider } from "@/presentation/providers/roads-provider";
+import { BanjarProfileProvider } from "@/presentation/providers/banjar-profile-provider";
+import { EmergencyContactProvider } from "@/presentation/providers/emergency-contact-provider";
+import { ImpactDataProvider } from "@/presentation/providers/impact-data-provider";
 import { TranslationProvider } from "@/presentation/i18n/translation-provider";
 import { getDictionary } from "@/presentation/i18n/dictionary";
 import { LOCALES, isLocale, type Locale } from "@/presentation/i18n/locale";
@@ -21,5 +25,5 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
   const { locale: value } = await params;
   if (!isLocale(value)) notFound();
   const locale: Locale = value;
-  return <html lang={locale} suppressHydrationWarning><body suppressHydrationWarning><TranslationProvider locale={locale} t={getDictionary(locale)}><AuthProvider><EventsProvider>{children}</EventsProvider></AuthProvider></TranslationProvider></body></html>;
+  return <html lang={locale} suppressHydrationWarning><body suppressHydrationWarning><TranslationProvider locale={locale} t={getDictionary(locale)}><AuthProvider><RoadsProvider><EventsProvider><BanjarProfileProvider><EmergencyContactProvider><ImpactDataProvider>{children}</ImpactDataProvider></EmergencyContactProvider></BanjarProfileProvider></EventsProvider></RoadsProvider></AuthProvider></TranslationProvider></body></html>;
 }

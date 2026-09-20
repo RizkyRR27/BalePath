@@ -5,7 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { ArrowRight, CalendarDays, ChevronLeft, ChevronRight, Clock3, Flower2, Info, MapPin, Search } from "lucide-react";
 import { useEvents } from "@/presentation/providers/events-provider";
-import { DEMO_DATE, roads } from "@/data/catalog/demo-data";
+import { useRoads } from "@/presentation/providers/roads-provider";
+import { DEMO_DATE } from "@/data/catalog/demo-data";
 import type { CeremonyEvent } from "@/domain/entities/ceremony-event";
 import { formatDate } from "@/domain/formatters/format-date";
 import { localePath } from "@/presentation/i18n/locale";
@@ -23,6 +24,7 @@ function validDate(value: string | null) {
 
 function CalendarContent() {
   const { events, ready } = useEvents();
+  const { roads } = useRoads();
   const { locale, t } = useTranslation();
   const params = useSearchParams();
   const [selectedDate, setSelectedDate] = useState(() => validDate(params.get("date")));

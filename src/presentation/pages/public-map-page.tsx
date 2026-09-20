@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, CalendarDays, Clock3, Flower2, Info, MapPin, Search, SlidersHorizontal, X } from "lucide-react";
 import { useEvents } from "@/presentation/providers/events-provider";
-import { DEMO_DATE, roads } from "@/data/catalog/demo-data";
+import { useRoads } from "@/presentation/providers/roads-provider";
+import { DEMO_DATE } from "@/data/catalog/demo-data";
 import { formatDate } from "@/domain/formatters/format-date";
 import { RoadMap } from "@/presentation/components/road-map";
 import { localePath } from "@/presentation/i18n/locale";
@@ -12,6 +13,7 @@ import { useTranslation } from "@/presentation/i18n/translation-provider";
 
 export default function PublicMapPage() {
   const { events, ready } = useEvents();
+  const { roads } = useRoads();
   const { locale, t } = useTranslation();
   const [query, setQuery] = useState("");
   const [date, setDate] = useState(DEMO_DATE);
