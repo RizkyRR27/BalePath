@@ -1,5 +1,8 @@
 "use client";
 
+// Foto referensi desain: src/presentation/assets/screens/kalender-yadnya.png
+// (+ mockup HTML: src/presentation/screens/kalender/kalender-yadnya.html) → rute "/kalender" halaman ini.
+
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
@@ -7,8 +10,7 @@ import { ArrowRight, CalendarDays, ChevronLeft, ChevronRight, Clock3, Flower2, I
 import { useBanjarEvents } from "@/presentation/providers/banjar-events-provider";
 import type { BanjarEvent } from "@/domain/entities/banjar-event";
 import { SEGMENT_META, type RoadSegmentStatus } from "@/domain/entities/road-segment";
-import { DEMO_DATE } from "@/data/catalog/demo-data";
-import { formatDate } from "@/domain/formatters/format-date";
+import { formatDate, todayKey } from "@/domain/formatters/format-date";
 import { coversDate } from "@/presentation/components/public-event-map-section";
 import { localePath } from "@/presentation/i18n/locale";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
@@ -20,9 +22,10 @@ function dateKey(date: Date) {
 }
 
 function validDate(value: string | null) {
-  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return DEMO_DATE;
+  // Tanpa ?date= (atau tanggal tak valid): selalu buka pada hari ini.
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return todayKey();
   const date = new Date(`${value}T12:00:00Z`);
-  return !Number.isNaN(date.getTime()) && dateKey(date) === value ? value : DEMO_DATE;
+  return !Number.isNaN(date.getTime()) && dateKey(date) === value ? value : todayKey();
 }
 
 function dateRangeLabel(event: BanjarEvent, locale: "id" | "en"): string {
@@ -40,6 +43,8 @@ function CalendarContent() {
   const [month, setMonth] = useState(() => new Date(`${validDate(params.get("date")).slice(0, 7)}-01T12:00:00Z`));
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
+  // Penanda sel "hari ini" di grid bulan (garis bawah emas).
+  const today = todayKey();
   const filters: { value: StatusFilter; label: string }[] = [
     { value: "all", label: t.map.filterAll },
     { value: "TUTUP_TOTAL", label: SEGMENT_META.TUTUP_TOTAL.label },
@@ -78,8 +83,10 @@ function CalendarContent() {
     setSelectedDate(dateKey(next));
   }
   function resetDate() {
-    setMonth(new Date(`${DEMO_DATE.slice(0, 7)}-01T12:00:00Z`));
-    setSelectedDate(DEMO_DATE);
+    // Kembali ke bulan & tanggal hari ini.
+    const now = todayKey();
+    setMonth(new Date(`${now.slice(0, 7)}-01T12:00:00Z`));
+    setSelectedDate(now);
   }
 
   return (
@@ -99,7 +106,7 @@ function CalendarContent() {
               const scheduled = monthEvents.filter((event) => coversDate(event, key));
               const full = scheduled.some((event) => event.roadSegments.some((segment) => segment.status === "TUTUP_TOTAL"));
               const partial = scheduled.some((event) => event.roadSegments.some((segment) => segment.status !== "TUTUP_TOTAL"));
-              return <button type="button" key={key} className={`public-day ${selectedDate === key ? "public-day-selected" : ""} ${key === DEMO_DATE ? "public-day-demo" : ""}`} onClick={() => setSelectedDate(key)} aria-pressed={selectedDate === key} aria-label={`${formatDate(key, locale)}, ${scheduled.length} ${t.calendar.agendaUnit}${full ? `, ${SEGMENT_META.TUTUP_TOTAL.label}` : ""}${partial ? `, ${SEGMENT_META.BUKA_TUTUP.label}` : ""}${key === DEMO_DATE ? `, ${t.calendar.demoShort}` : ""}`}><span className="public-day-number">{day}</span><span className="public-day-indicators" aria-hidden="true">{full && <i className="public-dot public-dot-full" />}{partial && <i className="public-dot public-dot-partial" />}</span>{scheduled.length > 0 && <span className="public-day-event" aria-hidden="true">{scheduled[0].title}{scheduled.length > 1 ? ` +${scheduled.length - 1}` : ""}</span>}</button>;
+              return <button type="button" key={key} className={`public-day ${selectedDate === key ? "public-day-selected" : ""} ${key === today ? "public-day-demo" : ""}`} onClick={() => setSelectedDate(key)} aria-pressed={selectedDate === key} aria-label={`${formatDate(key, locale)}, ${scheduled.length} ${t.calendar.agendaUnit}${full ? `, ${SEGMENT_META.TUTUP_TOTAL.label}` : ""}${partial ? `, ${SEGMENT_META.BUKA_TUTUP.label}` : ""}${key === today ? `, ${t.calendar.demoShort}` : ""}`}><span className="public-day-number">{day}</span><span className="public-day-indicators" aria-hidden="true">{full && <i className="public-dot public-dot-full" />}{partial && <i className="public-dot public-dot-partial" />}</span>{scheduled.length > 0 && <span className="public-day-event" aria-hidden="true">{scheduled[0].title}{scheduled.length > 1 ? ` +${scheduled.length - 1}` : ""}</span>}</button>;
             })}
           </div>
           <div className="public-calendar-caption"><Info size={16} aria-hidden="true" /><p>{t.calendar.selectDate}</p></div>

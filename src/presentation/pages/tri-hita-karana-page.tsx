@@ -1,5 +1,8 @@
 "use client";
 
+// Foto referensi desain: src/presentation/assets/screens/tri-hita-karana.png
+// (+ mockup HTML: src/presentation/screens/tri-hita/tri-hita-karana.html) → rute "/tri-hita-karana" halaman ini.
+
 import Image from "next/image";
 import { useState } from "react";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
@@ -17,9 +20,13 @@ const pillarMeta = [
 ];
 
 const ceremonyMeta = [
+  // Foto 1 — prosesi Melasti/iringan (tone coral).
   { tone: "coral", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBE2PptZTnNVbFEzYHA5S7MauW5VEnsygp_PA_G7jufpyj0f9w2VWJ6F7sen0nBKtak7FQuZfXkh6uFJKvYqhvSCVFZtlwFxK74c38H3zZ6LYZhSViIX2Kel4lPLQHwRHqXV_gng_x_mw3haShRz7Tv9XFWNHfkOgDmkUGJlFMxPIiasdjFC3IdNyW9LNseJQOJ0Sm-PHbr5rk7g6QVzdWHaS9IHKMg1qWlMxb1XcEqTLNeodNSVaxt" },
+  // Foto 2 — upacara dewa yadnya di pura (tone gold).
   { tone: "gold", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD-pl2sjlwY5YE4Y-B_A0EzWco6LzPbc0V4mpOU6a2sGd3KgxIN4dke0Qf39R9JMimRbvWGVv2y_--5GyH7iY_PCcOg7imtKC7E9kTvRjX2HmAID2Xlb5KYOK3b1_p7qBeYIPzyUKAEFq7jZolBD3eUdgCgJIU1zRThhKF0VWiqOeQrL0D3TpZn5nWFwtlIYLYd1_zlXwAh7Wdm4w8V40E3HkykMOv0VMyOTsETip0zIgC64SWZqdFK" },
+  // Foto 3 — detail sarana/banten (tone stone).
   { tone: "stone", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBWR-AgYMcR3e28oaB1ezM2pgKs0CWG9rEoo5WbsmbqK9G51YM3n1_MrrvL0boLpDhiHCjvzhEjmCJA3MAby5Poa5n5diKzVosGishaEvDfmtmHbN7Y2sbNJT2JZd3jI7FDqxdr2XX4VWCfDV_ve-rL1Df83s_u0IjLEZQAJaKW7xfmWjSKQCbDUD8YQjQX07MRM3cKl1XYjJz_EMn5nSidTCvU1acMsGxg2-xpn5mKGZoW2McLnYcq" },
+  // Foto 4 — kebersamaan krama / gotong royong (tone green).
   { tone: "green", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBLLM_lZS6lLg1EGfVSNbEU7PdOpSV3LP4vfENJ6jXNbhMN3Om8diu_0HhpLfKb1LuI35GIlJaY2uqU7HCayT6merM0jQma7yJn5TWdJtNB9Zbz3pTellrzmfTuI_uIxCpWja2U3XRhIvLZ9OeG1Eml9NZUcbtEIQpgcBM6zzUlXaTSFVpexVkhLsdMX6q1-8LI0gEU8vuTmmCvqyHeASH1uae0YT66T6vusuhkBe03pteehDwOhmTr" },
 ];
 

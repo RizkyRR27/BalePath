@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ArrowUpRight, CalendarDays, Map, Menu, Sprout, X } from "lucide-react";
 import { BrandIcon } from "@/presentation/components/brand-icon";
+import { CompetitionLogos } from "@/presentation/components/competition-logos";
 import { LanguageSwitcher } from "@/presentation/components/language-switcher";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
 import { localePath } from "@/presentation/i18n/locale";
@@ -23,9 +24,13 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
     <div className="public-shell">
       <a className="public-skip" href="#public-content">{t.common.skipToContent}</a>
       <header className="public-header">
+        {/* Navbar utama: brand BalePath + logo lomba TCC (aset lokal Salinan LOGO TCC.png). */}
         <Link href={localePath("/", locale)} className="public-brand" aria-label={t.nav.brandAria} onClick={() => setOpen(false)}>
           <span className="public-brand-mark"><BrandIcon size={36} /></span>
           <span>Bale<span className="public-gold">Path</span><small>{t.nav.brandTagline}</small></span>
+          {/* Separator + cluster logo lomba (TCC, Triple-C, UTM) — murni logo tanpa teks. */}
+          <span className="public-brand-divider" aria-hidden="true" />
+          <CompetitionLogos />
         </Link>
         <nav className="public-nav" aria-label={t.nav.ariaLabel}>
           {links.map(({ href, label, icon: Icon }) => <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} onClick={() => setOpen(false)}><Icon size={17} aria-hidden="true" />{label}</Link>)}

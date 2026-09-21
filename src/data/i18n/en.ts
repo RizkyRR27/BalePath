@@ -9,7 +9,7 @@ export const en = {
   common: {
     ...id.common,
     skipToContent: "Skip to content",
-    demoDate: "Demo date",
+    demoDate: "Today",
     close: "Close",
     loading: "Loading…",
   },
@@ -121,7 +121,7 @@ export const en = {
     scheduledRoads: "Scheduled roads",
     selectDate: "Select a date to see details. A date without an agenda does not guarantee an open road.",
     agendaUnit: "agendas",
-    demoShort: "demo date",
+    demoShort: "today",
     loadingFallback: "Preparing customary calendar…",
   },
   roadMap: {

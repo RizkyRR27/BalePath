@@ -1,14 +1,16 @@
 "use client";
 
+// Foto referensi desain: src/presentation/assets/screens/peta-adat.png
+// (+ mockup HTML: src/presentation/screens/peta/peta-adat.html) → rute "/" halaman ini.
+
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 import { ArrowRight, CalendarDays, Clock3, Flower2, Info, MapPin, Search, SlidersHorizontal, X } from "lucide-react";
 import { useBanjarEvents } from "@/presentation/providers/banjar-events-provider";
 import type { BanjarEvent } from "@/domain/entities/banjar-event";
-import { DEMO_DATE } from "@/data/catalog/demo-data";
 import { SEGMENT_META, type RoadSegmentStatus } from "@/domain/entities/road-segment";
-import { formatDate } from "@/domain/formatters/format-date";
+import { formatDate, todayKey } from "@/domain/formatters/format-date";
 import { PublicRoadMap } from "@/presentation/components/public-road-map";
 import { coversDate } from "@/presentation/components/public-event-map-section";
 import { localePath } from "@/presentation/i18n/locale";
@@ -33,7 +35,8 @@ function dateRangeLabel(event: BanjarEvent, locale: "id" | "en"): string {
 }
 
 function validDateParam(value: string | null): string {
-  return value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : DEMO_DATE;
+  // Tanpa ?date= (atau format tak valid): selalu buka pada hari ini.
+  return value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : todayKey();
 }
 
 function PublicMapContent() {
@@ -67,7 +70,7 @@ function PublicMapContent() {
 
   function resetFilters() {
     setQuery("");
-    setDate(DEMO_DATE);
+    setDate(todayKey());
     setStatus("all");
     setSelectedId(undefined);
   }

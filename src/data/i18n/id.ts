@@ -5,7 +5,7 @@ export const id = {
   },
   common: {
     skipToContent: "Langsung ke konten",
-    demoDate: "Tanggal demo",
+    demoDate: "Hari ini",
     wita: "WITA",
     close: "Tutup",
     loading: "Memuat…",
@@ -115,7 +115,7 @@ export const id = {
     scheduledRoads: "Ruas terjadwal",
     selectDate: "Pilih tanggal untuk melihat rincian. Tanggal tanpa agenda bukan jaminan jalan terbuka.",
     agendaUnit: "agenda",
-    demoShort: "tanggal demo",
+    demoShort: "hari ini",
     loadingFallback: "Menyiapkan kalender adat…",
   },
   roadMap: {
