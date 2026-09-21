@@ -1,5 +1,8 @@
 "use client";
 
+// Foto referensi desain: src/presentation/assets/screens/portal-prajuru.png
+// (+ mockup HTML: src/presentation/screens/portal/portal-prajuru.html) → rute "/admin/login" + area admin halaman ini.
+
 import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

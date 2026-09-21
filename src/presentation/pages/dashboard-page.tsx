@@ -8,7 +8,7 @@ import { useBanjarEvents } from "@/presentation/providers/banjar-events-provider
 import { DEMO_DATE } from "@/data/catalog/demo-data";
 import type { BanjarEvent } from "@/domain/entities/banjar-event";
 import { SEGMENT_META, type RoadSegment } from "@/domain/entities/road-segment";
-import { formatDate } from "@/domain/formatters/format-date";
+import { formatDate, todayKey } from "@/domain/formatters/format-date";
 import { AdminRoadPicker } from "@/presentation/components/admin-road-picker";
 import { localePath } from "@/presentation/i18n/locale";
 import { useTranslation } from "@/presentation/i18n/translation-provider";
@@ -20,8 +20,9 @@ export default function DashboardPage() {
   const d = t.dashboard;
 
   const [title, setTitle] = useState("");
-  const [startDate, setStartDate] = useState(DEMO_DATE);
-  const [endDate, setEndDate] = useState(DEMO_DATE);
+  // Form event baru selalu dibuka pada tanggal hari ini.
+  const [startDate, setStartDate] = useState(todayKey);
+  const [endDate, setEndDate] = useState(todayKey);
   const [startTime, setStartTime] = useState("10:00");
   const [endTime, setEndTime] = useState("15:00");
   const [description, setDescription] = useState("");
@@ -65,8 +66,8 @@ export default function DashboardPage() {
 
   function reset() {
     setTitle("");
-    setStartDate(DEMO_DATE);
-    setEndDate(DEMO_DATE);
+    setStartDate(todayKey());
+    setEndDate(todayKey());
     setStartTime("10:00");
     setEndTime("15:00");
     setDescription("");
