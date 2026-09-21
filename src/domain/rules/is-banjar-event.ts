@@ -30,6 +30,8 @@ export function isBanjarEvent(value: unknown): value is BanjarEvent {
   const event = value as BanjarEvent;
   return (
     typeof event.id === "string" &&
+    typeof event.banjarId === "string" &&
+    event.banjarId.trim().length > 0 &&
     typeof event.title === "string" &&
     event.title.trim().length > 0 &&
     typeof event.banjarName === "string" &&

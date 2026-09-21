@@ -197,10 +197,15 @@ Aturan dependency:
 
 ### Admin
 
-Login demo:
+Akun demo (satu akun per banjar, password sama):
 
 ```text
+Banjar Ubud Kaja
 Email:    admin@banjarkaja.id
+Password: admin123
+
+Banjar Padangtegal
+Email:    admin@padangtegal.id
 Password: admin123
 ```
 
@@ -209,8 +214,13 @@ Sesi login:
 - disimpan di `sessionStorage`;
 - masa berlaku 8 jam;
 - dashboard dilindungi layout admin;
-- logout menghapus sesi;
-- event hanya dapat dikelola oleh banjar admin yang sedang login.
+- logout menghapus sesi.
+
+Cakupan data per banjar:
+
+- daftar event, pencarian, pagination, dan kartu statistik dashboard hanya menampilkan event milik banjar yang sedang login (disaring via `banjarId` yang distempel otomatis saat menyimpan);
+- halaman publik tetap menampilkan event semua banjar;
+- nama banjar di form kegiatan, nama banjar di profil, dan nama posko di kontak darurat otomatis mengikuti akun login dan tidak dapat diubah manual (`Posko {nama banjar}`).
 
 Dashboard mendukung:
 

@@ -132,6 +132,7 @@
 .public-date-filter input[type="date"]:focus-visible { outline: none; }
 .public-date-filter .public-filter-hint { color: #b4aa99; font-size: 11px; }
 .public-empty-badge { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 6px 12px; border: 1px solid #66502b; border-radius: 999px; background: #292317; color: #e4c889; font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+.public-shell .admin-road-badge { display: inline-flex; align-items: center; flex: none; max-width: 100%; padding: 5px 10px; border-radius: 999px; color: #fff; font-size: 10px; font-weight: 800; letter-spacing: .05em; line-height: 1.5; white-space: nowrap; }
 .public-harmony { display: flex; align-items: center; gap: 21px; padding: 28px 30px; margin: 38px 0 44px; border: 1px solid #3a3326; border-radius: 5px; background: radial-gradient(ellipse at top right, #59451a21, transparent 65%), #1a1915; color: #c8a863; }
 .public-harmony h2 { color: #ead8b5; font: 400 23px/1.4 Georgia, serif; margin-bottom: 6px; }
 .public-harmony p { margin: 0; color: #b4a68b; font-size: 12px; }

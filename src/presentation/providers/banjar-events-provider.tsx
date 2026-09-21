@@ -16,10 +16,31 @@ type BanjarEventsState = {
 
 const BanjarEventsContext = createContext<BanjarEventsState | null>(null);
 
+const BANJAR_ID_BY_NAME: Record<string, string> = {
+  "Banjar Ubud Kaja": "ubud-kaja",
+  "Banjar Padangtegal": "padangtegal",
+};
+
+/** Event lama (sebelum ada banjarId) dinormalisasi berdasarkan nama banjarnya. */
+function withBanjarId(value: unknown): unknown {
+  if (!Array.isArray(value)) return value;
+  return value.map((item) => {
+    if (!item || typeof item !== "object") return item;
+    const event = item as Record<string, unknown>;
+    if (typeof event.banjarId === "string" && event.banjarId.trim().length > 0) return item;
+    const name = typeof event.banjarName === "string" ? event.banjarName : "";
+    return { ...event, banjarId: BANJAR_ID_BY_NAME[name] ?? "ubud-kaja" };
+  });
+}
+
 function loadStored(): BanjarEvent[] {
   try {
     const raw: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null");
-    return isBanjarEventList(raw) ? raw : banjarEventSeeds;
+    const normalized = withBanjarId(raw);
+    if (!isBanjarEventList(normalized)) return banjarEventSeeds;
+    const storedIds = new Set(normalized.map((event) => event.id));
+    const missingSeeds = banjarEventSeeds.filter((seed) => !storedIds.has(seed.id));
+    return missingSeeds.length > 0 ? [...normalized, ...missingSeeds] : normalized;
   } catch {
     return banjarEventSeeds;
   }

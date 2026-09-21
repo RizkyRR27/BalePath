@@ -14,6 +14,18 @@ export const dummyAdmin: Admin = {
   banjar: "Banjar Ubud Kaja",
 };
 
+/** Akun-akun admin demo — satu akun per banjar (password semua: admin123). */
+export const dummyAdmins: Admin[] = [
+  dummyAdmin,
+  {
+    id: "admin-tegal",
+    name: "Ni Made Sari Dewi",
+    email: "admin@padangtegal.id",
+    banjarId: "padangtegal",
+    banjar: "Banjar Padangtegal",
+  },
+];
+
 export const initialEvents: CeremonyEvent[] = [
   { id: "YDN-001", name: "Pitra Yadnya · Ngaben Ageng", banjarId: "ubud-kaja", banjar: "Banjar Ubud Kaja", date: DEMO_DATE, startTime: "11:00", endTime: "16:30", closure: "Tutup Total", roadId: "raya-ubud", published: true, meaning: "Ngaben adalah upacara penghormatan kepada yang telah berpulang, mengembalikan unsur tubuh kepada alam. Hormati prosesi dan ikuti arahan pecalang." },
   { id: "YDN-002", name: "Piodalan Pura Desa & Puseh", banjarId: "ubud-kaja", banjar: "Banjar Ubud Kaja", date: "2026-09-19", startTime: "14:00", endTime: "21:00", closure: "Buka-Tutup", roadId: "suweta", published: true, meaning: "Piodalan merupakan peringatan hari suci sebuah pura. Berikan ruang kepada umat yang bersembahyang dan hindari membunyikan klakson di sekitar prosesi." },

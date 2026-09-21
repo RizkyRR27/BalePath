@@ -222,6 +222,13 @@ export const en = {
     editContact: "Edit contact",
     saveContact: "Save contact",
     noContacts: "No contacts yet.",
+    resetSearch: "Reset search",
+    noSearchResults: "No events match your search query.",
+    prevPage: "Previous",
+    nextPage: "Next",
+    paginationAria: "Event list pagination",
+    showingCount: "Showing {start}–{end} of {total} events",
+    syncedNote: "Automatically follows the login account and cannot be changed.",
     invalid: "Please check the form.",
   },
   closure: {
@@ -328,6 +335,8 @@ export const en = {
     mapInteractiveSub: "PICK A STATUS · CLICK 2 POINTS ON THE UBUD MAP",
     segNone: "No road segments from the interactive map yet.",
     segReady: "road segments will be saved with this event.",
+    syncedNote: "Automatically follows the login account and cannot be changed.",
+    viewPublic: "View on public map",
     filters: {
       all: "All",
       published: "Published",
